@@ -2,21 +2,22 @@ package com.cs319.stack_in.dto.request.auth;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * AuthRequest
  *
  * @author Sainjargal Ishdorj
  **/
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Getter
 @Setter
-public class AuthRequest {
+public class GenerateOTPRequest {
 
-    private String username;
-
-    private String password;
+    @NotBlank(message = "{val.not.null}")
+    private String value;
 
 }

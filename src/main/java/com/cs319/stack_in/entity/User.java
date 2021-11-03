@@ -34,6 +34,9 @@ public class User extends Audit {
     @Column(name = "UNIQUE_ID", nullable = false)
     private String uniqueId;
 
+    @Column(name = "USERNAME", nullable = false)
+    private String username;
+
     @Column(name = "IS_ACTIVE", nullable = false)
     private boolean isActive;
 
