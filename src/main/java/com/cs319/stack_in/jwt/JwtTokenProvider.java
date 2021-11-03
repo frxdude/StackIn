@@ -46,14 +46,28 @@ public class JwtTokenProvider {
         secretKey = env.getProperty("jwt.key");
     }
 
-    public String createToken(String uniqueId, Role role, String family, boolean isAccess) {
+    public String createToken(String uniqueId, Role role, boolean isAccess) {
 
         Claims claims = Jwts.claims().setSubject(uniqueId);
         claims.put("auth", role);
-        if (StringUtils.isNotBlank(family)) claims.put("family", family);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + (isAccess ? validityInMilliseconds : refreshValidityInMilliseconds).intValue());
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
+
+    public String createTempToken(String value) {
+        Claims claims = Jwts.claims().setSubject(value);
+        claims.put("auth", Role.ROLE_TEMP);
+
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + limitedValidityInMilliseconds);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -76,21 +90,10 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("auth").toString();
     }
 
-    public String getStatus(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("isPhone").toString();
-    }
-
-    public String getFamily(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("family") != null
-                ? Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("family").toString()
-                : "";
-    }
-
     public String exchangeToken(String refreshToken) {
         String newAccessToken = createToken(
                 getSubject(refreshToken),
                 Role.valueOf(getRole(refreshToken)),
-                getFamily(refreshToken) != null ? getFamily(refreshToken) : "",
                 true);
         return newAccessToken;
     }
