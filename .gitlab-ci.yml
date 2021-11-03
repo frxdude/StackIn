@@ -1,0 +1,30 @@
+default:
+  before_script:
+    - echo START_B180910040_START
+stages:
+  - build
+  - deploy
+variables:
+  GIT_STRATEGY: clone
+build:
+  stage: build
+  tags:
+    - deploy
+  script:
+    - chmod +x ./gradlew
+    - ./gradlew build
+    - mv build/libs/stack_in.jar /app/stack_in/stack_in.jar
+  only:
+    - deployment
+deploy:
+  stage: deploy
+  tags:
+    - deploy
+  script:
+    - if [ "$(netstat -tlnp | grep 8080 | wc -l)" -gt 0 ]; then pkill -9 -f stack_in.jar; fi
+    - cd /app/stack_in
+    - nohup java -jar stack_in.jar --spring.config.name=application,log4j --spring.config.location=file:///app/stack_in
+    - echo DONE_B180910040_DONE
+    - exit
+  only:
+    - deployment

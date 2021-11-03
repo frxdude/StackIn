@@ -1,16 +1,21 @@
 package com.cs319.stack_in.controller;
 
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
+import com.cs319.stack_in.dto.request.auth.ConfirmOTPRequest;
+import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.exception.TokenException;
 import com.cs319.stack_in.service.AuthService;
+import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 
 /**
  * AuthController
@@ -42,9 +47,14 @@ public class AuthController {
         return ResponseEntity.ok(service.exchangeToken(refreshToken, req));
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ResponseEntity<Object> register(@Valid @RequestBody AuthRequest authRequest, HttpServletRequest req) throws
-            BusinessException {
-        return ResponseEntity.ok(service.register(req));
+    @RequestMapping(value = "otp/send", method = RequestMethod.POST)
+    public ResponseEntity<Object> sendOTP(@Valid @RequestBody GenerateOTPRequest otpRequest,
+                                          HttpServletRequest req) throws BusinessException, UnsupportedEncodingException {
+        return ResponseEntity.ok(service.sendOtp(otpRequest, req));
+    }
+
+    @RequestMapping(value = "otp/confirm", method = RequestMethod.POST)
+    public ResponseEntity<Object> sendOTP(@Valid @RequestBody ConfirmOTPRequest otpRequest, HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.confirmOTP(otpRequest, req));
     }
 }
