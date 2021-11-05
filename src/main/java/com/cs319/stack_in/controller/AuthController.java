@@ -1,17 +1,12 @@
 package com.cs319.stack_in.controller;
 
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
-import com.cs319.stack_in.entity.User;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.exception.TokenException;
-import com.cs319.stack_in.exception.UserAlreadyExistException;
 import com.cs319.stack_in.service.AuthService;
-import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

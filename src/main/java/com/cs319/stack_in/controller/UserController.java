@@ -32,16 +32,4 @@ public class UserController {
                                                 HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.resetPassword(id, req));
     }
-
-    @RequestMapping(value = "{userId}/answers", method = RequestMethod.GET)
-    public ResponseEntity<Object> getAnswers(@PathVariable Long userId,
-                                                HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.getAnswers(userId, req));
-    }
-
-    @RequestMapping(value = "{userId}/questions", method = RequestMethod.GET)
-    public ResponseEntity<Object> getQuestions(@PathVariable Long userId,
-                                             HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.getQuestions(userId, req));
-    }
 }
