@@ -1,0 +1,6 @@
+2021-11-04 19:45:57.057  INFO  AnswerServiceImpl:21 - [add][input][AnswerAddRequest(answer=???????, questionId=1, userUniqueId=11, upVotes=0)] --  -- 
+2021-11-04 19:45:57.057  INFO  AnswerServiceImpl:21 - [add][output][com.cs319.stack_in.entity.Answer@8dea749] --  -- 
+2021-11-04 19:55:13.013  INFO  AnswerServiceImpl:21 - [getAll][input][] --  -- 
+2021-11-04 19:55:13.013  INFO  AnswerServiceImpl:21 - [getAll][output][size=1] --  -- 
+2021-11-04 19:56:18.018  INFO  AnswerServiceImpl:21 - [get][input][questionId=1] --  -- 
+2021-11-04 19:56:18.018  INFO  AnswerServiceImpl:21 - [get][output][com.cs319.stack_in.entity.Answer@4f7f9a7b] --  -- 
