@@ -23,7 +23,7 @@ deploy:
   script:
     - if [ "$(netstat -tlnp | grep 8080 | wc -l)" -gt 0 ]; then pkill -9 -f stack_in.jar; fi
     - cd /app/stack_in
-    - nohup java -jar stack_in.jar --spring.config.name=application,log4j --spring.config.location=file:///app/stack_in
+    - nohup java -jar stack_in.jar --spring.config.name=application,log4j --spring.config.location=file:///app/stack_in/ > stack_in.out 2>&1  &
     - echo DONE_B180910040_DONE
     - exit
   only:
