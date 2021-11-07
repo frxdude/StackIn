@@ -42,3 +42,4 @@ public class UserController {
         return ResponseEntity.ok(service.register(authRequest, req));
     }
 }
+
