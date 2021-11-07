@@ -54,7 +54,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "otp/confirm", method = RequestMethod.POST)
-    public ResponseEntity<Object> sendOTP(@Valid @RequestBody ConfirmOTPRequest otpRequest, HttpServletRequest req) throws BusinessException {
+    public ResponseEntity<Object> confirmOTP(@Valid @RequestBody ConfirmOTPRequest otpRequest, HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.confirmOTP(otpRequest, req));
     }
 }
