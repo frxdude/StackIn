@@ -6,11 +6,9 @@ import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.exception.TokenException;
 import com.cs319.stack_in.service.AuthService;
-import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

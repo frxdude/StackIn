@@ -27,7 +27,6 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-
     PasswordEncoder encoder;
     UserRepository repository;
     JwtTokenProvider jwtTokenProvider;
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService {
      * @throws BusinessException
      * @author Sainjargal Ishdorj
      **/
-
     public AuthResponse resetPassword(Long id, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[login][input][" + "" + "]");

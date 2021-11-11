@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2021-11-05 16:37:10.010  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=86868000, password=2121)] -- 887a6065-eaef-43df-924e-dbf2e7307e7d -- 
 2021-11-05 16:37:10.010  FATAL UserServiceImpl:30 - [findUser][output][No message found under code 'user.not.found' for locale 'en'.] -- 887a6065-eaef-43df-924e-dbf2e7307e7d -- 
 org.springframework.context.NoSuchMessageException: No message found under code 'user.not.found' for locale 'en'.
@@ -199,3 +200,7 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:832)
+=======
+2021-11-05 14:17:16.016  INFO  AnswerServiceImpl:21 - [vote][input][1] --  -- 
+2021-11-05 14:17:16.016  INFO  AnswerServiceImpl:21 - [vote][output][com.cs319.stack_in.entity.Answer@424084e4] --  -- 
+>>>>>>> 9db12b7686b9c52678425c019648a084149a1261

@@ -1,0 +1,4 @@
+2021-10-31 13:32:07.007  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=fef, password=de)] -- 94ad6b29-bb9e-4f49-a0ba-59c80042a9e2 -- 
+2021-10-31 13:32:07.007  INFO  AuthServiceImpl:21 - [login][output][] -- 94ad6b29-bb9e-4f49-a0ba-59c80042a9e2 -- 
+2021-10-31 13:33:14.014  INFO  AuthServiceImpl:21 - [login][input][] -- 369b7949-9f49-4974-a5dc-1f871555024c -- 
+2021-10-31 13:33:14.014  INFO  AuthServiceImpl:21 - [login][output][] -- 369b7949-9f49-4974-a5dc-1f871555024c -- 
