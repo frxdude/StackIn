@@ -46,6 +46,12 @@ public class User extends Audit {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
+    @Column(name = "PHONE", nullable = false)
+    private String phone;
+
+    @Column(name = "JOB_ID", nullable = false)
+    private Long jobId;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
