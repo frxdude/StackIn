@@ -20,8 +20,6 @@ import javax.persistence.*;
 @Builder
 public class Answer extends Audit{
     @Id
-    @SequenceGenerator(name = "answerSeq", sequenceName = "ANSWER_SEQ", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "answerSeq")
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -40,4 +38,8 @@ public class Answer extends Audit{
     @Column(name = "UP_VOTES", nullable = true)
     private Integer upVotes;
 
+    @PrePersist
+    public void prePersist() {
+        setId(getId() == null ? System.currentTimeMillis() : getId());
+    }
 }

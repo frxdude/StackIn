@@ -105,8 +105,8 @@ public class UserServiceImpl implements UserService {
                     .build());
 
             AuthResponse authResponse = AuthResponse.builder()
-                    .accessToken(jwtTokenProvider.createToken(user.getUniqueId(), user.getRoles().get(0), true))
-                    .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), user.getRoles().get(0), false))
+                    .accessToken(jwtTokenProvider.createToken(String.valueOf(user.getId()), user.getRoles().get(0), true))
+                    .refreshToken(jwtTokenProvider.createToken(String.valueOf(user.getId()), user.getRoles().get(0), false))
                     .build();
 
             Logger.info(this.getClass().getName(), "[register][output][" + "" + "]");
@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
 
     public User findUser(HttpServletRequest req) throws BusinessException {
         try {
-            return repository.findByUniqueId(req.getRemoteUser())
+            return repository.findById(req.getRemoteUser())
                     .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
         } catch (BusinessException ex) {
             Logger.warn(getClass().getName(), "[findUser][" + ex.reason + "]");

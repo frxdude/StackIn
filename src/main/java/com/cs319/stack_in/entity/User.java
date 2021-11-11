@@ -26,8 +26,6 @@ import java.util.List;
 public class User extends Audit {
 
     @Id
-    @SequenceGenerator(name = "userSeq", sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "userSeq")
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -50,6 +48,6 @@ public class User extends Audit {
 
     @PrePersist
     public void prePersist() {
-//        setId(getId() == null ? Timestamp.from(Instant.now()) : getId());
+        setId(getId() == null ? System.currentTimeMillis() : getId());
     }
 }

@@ -21,8 +21,6 @@ import javax.persistence.*;
 public class Question extends Audit{
 
     @Id
-    @SequenceGenerator(name = "questionSeq", sequenceName = "QUESTION_SEQ", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "questionSeq")
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -43,4 +41,8 @@ public class Question extends Audit{
     @Column(name = "UP_VOTES", nullable = true)
     private Integer upVotes;
 
+    @PrePersist
+    public void prePersist() {
+        setId(getId() == null ? System.currentTimeMillis() : getId());
+    }
 }
