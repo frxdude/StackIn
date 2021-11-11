@@ -42,9 +42,4 @@ public class AuthController {
         return ResponseEntity.ok(service.exchangeToken(refreshToken, req));
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ResponseEntity<Object> register(@Valid @RequestBody AuthRequest authRequest, HttpServletRequest req) throws
-            BusinessException {
-        return ResponseEntity.ok(service.register(req));
-    }
 }

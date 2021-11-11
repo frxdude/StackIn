@@ -1,5 +1,7 @@
 package com.cs319.stack_in.controller;
 
+import com.cs319.stack_in.entity.Answer;
+import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * UserController
@@ -31,5 +34,21 @@ public class UserController {
     public ResponseEntity<Object> resetPassword(@PathVariable(value = "userId") Long id,
                                                 HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.resetPassword(id, req));
+    }
+
+    @RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
+    public List<Question> getQuestions(@PathVariable Long id,
+                                                HttpServletRequest req) throws BusinessException {
+        List<Question> questionList = service.getQuestions(id, req);
+
+        return questionList;
+    }
+
+    @RequestMapping(value = "/{id}/answers", method = RequestMethod.GET)
+    public List<Answer> getAnswers(@PathVariable Long id,
+                                   HttpServletRequest req) throws BusinessException {
+        List<Answer> answerList = service.getAnswers(id, req);
+
+        return answerList;
     }
 }

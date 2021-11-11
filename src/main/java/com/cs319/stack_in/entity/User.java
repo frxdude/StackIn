@@ -33,13 +33,11 @@ public class User extends Audit {
 
 
     @Column(name = "USERNAME", nullable = false)
-    private String username;
+    private String userName;
 
     @Column(name = "IS_ACTIVE", nullable = false)
     private boolean isActive;
 
-    @Column(name = "USER_NAME", nullable = false)
-    private String username;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;

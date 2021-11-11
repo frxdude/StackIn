@@ -20,8 +20,8 @@ public class QuestionAddRequest {
 
     private Long correctAnswerId;
 
-    @NotBlank(message = "{val.not.null}")
-    private String userId;
+    @NotNull(message = "{val.not.null}")
+    private Long userId;
 
     @NotNull(message = "{val.not.null}")
     private int upVotes;

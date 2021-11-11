@@ -66,28 +66,7 @@ public class AuthServiceImpl implements AuthService {
      **/
 
     public AuthResponse login(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
-        try {
-            Logger.info(this.getClass().getName(), "[login][input][" + authRequest.toString() + "]");
-            User user = userService.findUser(req);
-            if (!encoder.matches(authRequest.getPassword(), user.getPassword()))
-                throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "Password doesnt match");
-
-            if (authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUniqueId(), authRequest.getPassword())).isAuthenticated()) {
-
-                Role role = user.getRoles().get(0);
-                AuthResponse authResponse = AuthResponse.builder()
-                        .accessToken(jwtTokenProvider.createToken(user.getUniqueId(), role, true))
-                        .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), role, false))
-                        .build();
-
-                Logger.info(getClass().getName(), "[login][output][" + authResponse + "]");
-                return authResponse;
-            } else
-                throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "username or password doesnt match");
-        } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[login][output][" + ex.getMessage() + "]", ex);
-            throw ex;
-        }
+        return null;
     }
 
     /**
@@ -124,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
             if (!otpRequest.getValue().matches("^(.+)@(.+)$"))
                 throw new BusinessException(localization.getMessage("val.email"), "Invalid email");
 
-            Optional<User> optionalUser = userRepository.findByUsername(otpRequest.getValue());
+            Optional<User> optionalUser = userRepository.findByUserName(otpRequest.getValue());
 
             if (optionalUser.isPresent() && optionalUser.get().isActive())
                 throw new BusinessException(localization.getMessage("user.already"), "User already exists");

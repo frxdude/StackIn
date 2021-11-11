@@ -35,6 +35,7 @@ public class Question extends Audit{
 
     @Column(name = "CORRECT_ANSWER_ID", nullable = true)
     private Long correctAnswerId;
+
     @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = false)
     private User user;
