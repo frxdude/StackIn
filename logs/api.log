@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2021-11-05 16:12:36.036  INFO  QuestionServiceImpl:21 - [getAll][input][] --  -- 
 2021-11-05 16:12:36.036  INFO  QuestionServiceImpl:21 - [getAll][output][size=2] --  -- 
 2021-11-05 16:13:32.032  INFO  QuestionServiceImpl:21 - [add][input][QuestionAddRequest(title=?????? 1, description=rhrrrh, correctAnswerId=null, userId=1, upVotes=0)] --  -- 
@@ -33,6 +34,23 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+=======
+<<<<<<< HEAD
+2021-11-05 16:37:10.010  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=86868000, password=2121)] -- 887a6065-eaef-43df-924e-dbf2e7307e7d -- 
+2021-11-05 16:37:10.010  FATAL UserServiceImpl:30 - [findUser][output][No message found under code 'user.not.found' for locale 'en'.] -- 887a6065-eaef-43df-924e-dbf2e7307e7d -- 
+org.springframework.context.NoSuchMessageException: No message found under code 'user.not.found' for locale 'en'.
+	at org.springframework.context.support.AbstractMessageSource.getMessage(AbstractMessageSource.java:161)
+	at com.cs319.stack_in.helper.Localization.getMessage(Localization.java:32)
+	at com.cs319.stack_in.serviceImpl.UserServiceImpl.lambda$findUser$0(UserServiceImpl.java:112)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:401)
+	at com.cs319.stack_in.serviceImpl.UserServiceImpl.findUser(UserServiceImpl.java:112)
+	at com.cs319.stack_in.serviceImpl.AuthServiceImpl.login(AuthServiceImpl.java:71)
+	at com.cs319.stack_in.controller.AuthController.adminLogin(AuthController.java:41)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
@@ -55,6 +73,12 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+<<<<<<< HEAD
+=======
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
@@ -67,6 +91,12 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
 	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+<<<<<<< HEAD
+=======
+	at com.cs319.stack_in.filter.JwtTokenFilter.doFilterInternal(JwtTokenFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
@@ -113,6 +143,7 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+<<<<<<< HEAD
 	at java.base/java.lang.Thread.run(Thread.java:831)
 2021-11-05 16:16:16.016  INFO  AnswerServiceImpl:21 - [add][input][AnswerAddRequest(answer=??????? 2, userId=1, upVotes=0)] --  -- 
 2021-11-05 16:16:16.016  FATAL AnswerServiceImpl:30 - [add][output][No message found under code 'data.not.found' for locale 'en'.] --  -- 
@@ -127,6 +158,22 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+=======
+	at java.base/java.lang.Thread.run(Thread.java:832)
+2021-11-05 16:37:10.010  FATAL AuthServiceImpl:30 - [login][output][No message found under code 'user.not.found' for locale 'en'.] -- 887a6065-eaef-43df-924e-dbf2e7307e7d -- 
+org.springframework.context.NoSuchMessageException: No message found under code 'user.not.found' for locale 'en'.
+	at org.springframework.context.support.AbstractMessageSource.getMessage(AbstractMessageSource.java:161)
+	at com.cs319.stack_in.helper.Localization.getMessage(Localization.java:32)
+	at com.cs319.stack_in.serviceImpl.UserServiceImpl.lambda$findUser$0(UserServiceImpl.java:112)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:401)
+	at com.cs319.stack_in.serviceImpl.UserServiceImpl.findUser(UserServiceImpl.java:112)
+	at com.cs319.stack_in.serviceImpl.AuthServiceImpl.login(AuthServiceImpl.java:71)
+	at com.cs319.stack_in.controller.AuthController.adminLogin(AuthController.java:41)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
@@ -149,6 +196,12 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+<<<<<<< HEAD
+=======
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
@@ -161,6 +214,12 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
 	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+<<<<<<< HEAD
+=======
+	at com.cs319.stack_in.filter.JwtTokenFilter.doFilterInternal(JwtTokenFilter.java:43)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
 	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
@@ -207,6 +266,7 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+<<<<<<< HEAD
 	at java.base/java.lang.Thread.run(Thread.java:831)
 2021-11-05 16:16:36.036  INFO  AnswerServiceImpl:21 - [add][input][AnswerAddRequest(answer=??????? 2, userId=1, upVotes=0)] --  -- 
 2021-11-05 16:16:36.036  INFO  AnswerServiceImpl:21 - [add][output][com.cs319.stack_in.entity.Answer@71e4143f] --  -- 
@@ -216,3 +276,12 @@ org.springframework.context.NoSuchMessageException: No message found under code 
 2021-11-05 16:23:04.004  INFO  AnswerServiceImpl:21 - [vote][output][com.cs319.stack_in.entity.Answer@5e7cf1db] --  -- 
 2021-11-05 16:23:09.009  INFO  AnswerServiceImpl:21 - [vote][input][-1] --  -- 
 2021-11-05 16:23:09.009  INFO  AnswerServiceImpl:21 - [vote][output][com.cs319.stack_in.entity.Answer@372b37cf] --  -- 
+=======
+	at java.base/java.lang.Thread.run(Thread.java:832)
+=======
+2021-11-05 14:17:16.016  INFO  AnswerServiceImpl:21 - [vote][input][1] --  -- 
+2021-11-05 14:17:16.016  INFO  AnswerServiceImpl:21 - [vote][output][com.cs319.stack_in.entity.Answer@424084e4] --  -- 
+>>>>>>> 9db12b7686b9c52678425c019648a084149a1261
+>>>>>>> 81aaa14ab8bdeaec71c165ce294c3b1286b9e0fd
+2021-11-11 22:37:13.013  INFO  AnswerServiceImpl:21 - [add][input][AnswerAddRequest(answer=??????? 2, userId=11, upVotes=0)] --  -- 
+2021-11-11 22:37:13.013  WARN  AnswerServiceImpl:24 - [add][User not found] --  -- 

@@ -39,7 +39,10 @@ public class UserServiceImpl implements UserService {
     AnswerRepository answerRepository;
     QuestionRepository questionRepository;
 
-    public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+//    public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+
+    @Autowired
+    public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization) {
         this.encoder = encoder;
         this.repository = repository;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -78,4 +81,62 @@ public class UserServiceImpl implements UserService {
         return answerList;
     }
 
+    /**
+     * @param req servlet request
+     * @return {@link AuthResponse}
+     * @throws BusinessException when User already exists
+     * @author Sainjargal Ishdorj
+     **/
+
+    public AuthResponse register(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
+        try {
+            Logger.info(this.getClass().getName(), "[register][input][" + authRequest.toString() + "]");
+
+            Optional<User> optionalUser = repository.findByUsername(authRequest.getUsername());
+
+            if(optionalUser.isPresent())
+                throw new BusinessException(localization.getMessage("user.already"), "User already exists");
+
+            User user  = repository.save(User.builder()
+                    .isActive(true)
+                    .username(authRequest.getUsername())
+                    .password(encoder.encode(authRequest.getPassword()))
+                    .roles(Collections.singletonList(Role.ROLE_USER))
+                    .build());
+
+            AuthResponse authResponse = AuthResponse.builder()
+                    .accessToken(jwtTokenProvider.createToken(user.getUniqueId(), user.getRoles().get(0), true))
+                    .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), user.getRoles().get(0), false))
+                    .build();
+
+            Logger.info(this.getClass().getName(), "[register][output][" + "" + "]");
+            return authResponse;
+        } catch (BusinessException ex) {
+            Logger.warn(getClass().getName(), "[register][" + ex.reason + "]");
+            throw ex;
+        } catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[register][output][" + ex.getMessage() + "]", ex);
+            throw ex;
+        }
+    }
+
+    /**
+     * @param req servlet request
+     * @return {@link User}
+     * @throws BusinessException when User not found
+     * @author Sainjargal Ishdorj
+     **/
+
+    public User findUser(HttpServletRequest req) throws BusinessException {
+        try {
+            return repository.findByUniqueId(req.getRemoteUser())
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
+        } catch (BusinessException ex) {
+            Logger.warn(getClass().getName(), "[findUser][" + ex.reason + "]");
+            throw ex;
+        } catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[findUser][output][" + ex.getMessage() + "]", ex);
+            throw ex;
+        }
+    }
 }

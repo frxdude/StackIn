@@ -1,10 +1,11 @@
 package com.cs319.stack_in.entity;
-
+import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -33,11 +34,10 @@ public class User extends Audit {
 
 
     @Column(name = "USERNAME", nullable = false)
-    private String userName;
+    private String username;
 
     @Column(name = "IS_ACTIVE", nullable = false)
     private boolean isActive;
-
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
@@ -48,4 +48,8 @@ public class User extends Audit {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    @PrePersist
+    public void prePersist() {
+//        setId(getId() == null ? Timestamp.from(Instant.now()) : getId());
+    }
 }

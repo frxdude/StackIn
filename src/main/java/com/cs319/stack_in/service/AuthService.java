@@ -1,5 +1,6 @@
 package com.cs319.stack_in.service;
 
+import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.auth.ConfirmOTPRequest;
 import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 public interface AuthService {
 
     AuthResponse login (AuthRequest authRequest, HttpServletRequest req) throws BusinessException;
+    AuthResponse register (AuthRegisterRequest registerRequest, HttpServletRequest req) throws BusinessException;
 
     AuthResponse exchangeToken (String refreshToken, HttpServletRequest req) throws TokenException;
 

@@ -5,13 +5,18 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * QuestionUpdataRequest
+ *
+ * @author Ariunaa Gantumur
+ **/
+
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionAddRequest {
-
+public class QuestionUpdateRequest {
     @NotBlank(message = "{val.not.null}")
     private String title;
 
@@ -24,6 +29,8 @@ public class QuestionAddRequest {
     private Long id;
 
     @NotNull(message = "{val.not.null}")
-    private int upVotes;
+    private Long userId;
 
+    @NotNull(message = "{val.not.null}")
+    private int upVotes;
 }

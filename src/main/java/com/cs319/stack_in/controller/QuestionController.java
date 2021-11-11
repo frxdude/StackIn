@@ -1,6 +1,7 @@
 package com.cs319.stack_in.controller;
 
 import com.cs319.stack_in.dto.request.question.QuestionAddRequest;
+import com.cs319.stack_in.dto.request.question.QuestionUpdateRequest;
 import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.QuestionService;
@@ -44,8 +45,8 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@Valid @RequestBody QuestionAddRequest addRequest, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.update(addRequest, req));
+    public ResponseEntity<Object> update(@Valid @RequestBody QuestionUpdateRequest updateRequest, HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.update(updateRequest, req));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

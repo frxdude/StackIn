@@ -1,5 +1,6 @@
 package com.cs319.stack_in.serviceImpl;
 
+import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.auth.ConfirmOTPRequest;
 import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
@@ -69,6 +70,19 @@ public class AuthServiceImpl implements AuthService {
         return null;
     }
 
+    @Override
+    public AuthResponse register(AuthRegisterRequest registerRequest, HttpServletRequest req) throws BusinessException {
+
+        if(registerRequest.getPassword().equals(registerRequest.getRePass())){
+            User user = User.builder()
+                    .username(registerRequest.getUsername()).
+                    build();
+//            userRepository.save();
+        }
+
+        return null;
+    }
+
     /**
      * @param req servlet request
      * @return {@link AuthResponse}
@@ -103,7 +117,7 @@ public class AuthServiceImpl implements AuthService {
             if (!otpRequest.getValue().matches("^(.+)@(.+)$"))
                 throw new BusinessException(localization.getMessage("val.email"), "Invalid email");
 
-            Optional<User> optionalUser = userRepository.findByUserName(otpRequest.getValue());
+            Optional<User> optionalUser = userRepository.findByUsername(otpRequest.getValue());
 
             if (optionalUser.isPresent() && optionalUser.get().isActive())
                 throw new BusinessException(localization.getMessage("user.already"), "User already exists");

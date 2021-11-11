@@ -2,6 +2,7 @@ package com.cs319.stack_in.serviceImpl;
 
 import com.cs319.stack_in.dto.request.AddVoteRequest;
 import com.cs319.stack_in.dto.request.question.QuestionAddRequest;
+import com.cs319.stack_in.dto.request.question.QuestionUpdateRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
 import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.entity.User;
@@ -43,7 +44,7 @@ public class QuestionServiceImpl implements QuestionService {
         try {
             Logger.info(this.getClass().getName(), "[add][input][" + addRequest.toString() + "]");
 
-            User user = userRepository.findById(addRequest.getUserId())
+            User user = userRepository.findById(addRequest.getId())
                             .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
 
             Question question = repository.save(Question.builder()
@@ -133,7 +134,8 @@ public class QuestionServiceImpl implements QuestionService {
         }
     }
 
-    public Question update(QuestionAddRequest updateRequest, HttpServletRequest req) throws  BusinessException{
+    @Override
+    public Question update(QuestionUpdateRequest updateRequest, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[update][input][" + updateRequest.toString() + "]");
 
@@ -157,6 +159,8 @@ public class QuestionServiceImpl implements QuestionService {
             throw ex;
         }
     }
+
+
 
     @Override
     public void vote(Long questionId, AddVoteRequest addVoteRequest, HttpServletRequest req) throws  BusinessException{
