@@ -7,10 +7,11 @@ import javax.persistence.*;
 
 /**
  * Question
+ *
  * @author Ariunaa Gantumur
  */
 @Entity
-@Table(name="ANSWERS", indexes = {
+@Table(name = "ANSWERS", indexes = {
         @Index(name = "answer_id_idx", columnList = "id", unique = true),
 })
 @Getter
@@ -18,7 +19,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Answer extends Audit{
+public class Answer extends Audit {
+
     @Id
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -27,11 +29,11 @@ public class Answer extends Audit{
     @Column(name = "answer", nullable = false)
     private String answer;
 
-    @ManyToOne(targetEntity=Question.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity = Question.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "QUESTION_ID", referencedColumnName = "ID", nullable = false)
     private Question question;
 
-    @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = false)
     private User user;
 
