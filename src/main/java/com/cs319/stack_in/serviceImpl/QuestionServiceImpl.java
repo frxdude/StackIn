@@ -13,9 +13,11 @@ import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.QuestionService;
 import com.cs319.stack_in.util.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,65 +33,6 @@ public class QuestionServiceImpl implements QuestionService {
         this.repository = repository;
         this.userRepository = userRepository;
     }
-
-    /**
-     * @param addRequest {@link QuestionAddRequest} DTO
-     * @param req servlet request
-     * @return {@link AuthResponse}
-     * @throws BusinessException when User not found
-     * @author ner
-     **/
-
-    public Question add(QuestionAddRequest addRequest, HttpServletRequest req)  throws BusinessException{
-        try {
-            Logger.info(this.getClass().getName(), "[add][input][" + addRequest.toString() + "]");
-
-            User user = userRepository.findById(addRequest.getId())
-                            .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
-
-            Question question = repository.save(Question.builder()
-                    .description(addRequest.getDescription())
-                    .title(addRequest.getTitle())
-                    .upVotes(addRequest.getUpVotes())
-                    .user(user)
-                    .build());
-
-            Logger.info(this.getClass().getName(), "[add][output][" + question.toString() + "]");
-            return null;
-        } catch (BusinessException ex) {
-            Logger.warn(getClass().getName(), "[add][" + ex.reason + "]");
-            throw ex;
-        } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[add][output][" + ex.getMessage() + "]", ex);
-            throw ex;
-        }
-    }
-
-    /**
-     * @param questionId Long
-     * @param req servlet request
-     * @throws BusinessException when Data not found
-     * @author ner
-     **/
-
-    public void delete(Long questionId, HttpServletRequest req) throws BusinessException{
-        try {
-            Logger.info(this.getClass().getName(), "[delete][input][questionId=" + questionId + "]");
-
-            repository.findById(questionId)
-                    .orElseThrow(() -> new BusinessException(localization.getMessage("data.not.found"), "Question not found"));
-
-            repository.deleteById(questionId);
-            Logger.info(this.getClass().getName(), "[delete][output][success]");
-        } catch (BusinessException ex) {
-            Logger.warn(getClass().getName(), "[delete][" + ex.reason + "]");
-            throw ex;
-        } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[delete][output][" + ex.getMessage() + "]", ex);
-            throw ex;
-        }
-    }
-
     /**
      * @param req servlet request
      * @return List of {@link Question}
@@ -107,6 +50,100 @@ public class QuestionServiceImpl implements QuestionService {
             throw ex;
         }
     }
+    /**
+     * @param addRequest {@link QuestionAddRequest} DTO
+     * @param req servlet request
+     * @return {@link AuthResponse}
+     * @throws BusinessException when User not found
+     * @author ner
+     **/
+    public Question create(QuestionAddRequest addRequest, HttpServletRequest req)  throws BusinessException{
+        try {
+            Logger.info(this.getClass().getName(), "[add][input][" + addRequest.toString() + "]");
+
+            User user = userRepository.findById(addRequest.getUserId())
+                            .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
+
+            Question question = repository.save(Question.builder()
+                    .description(addRequest.getDescription())
+                    .title(addRequest.getTitle())
+                    .user(user)
+                    .build());
+
+            Logger.info(this.getClass().getName(), "[add][output][" + question.toString() + "]");
+            return question;
+        } catch (BusinessException ex) {
+            Logger.warn(getClass().getName(), "[add][" + ex.reason + "]");
+            throw ex;
+        } catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[add][output][" + ex.getMessage() + "]", ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public ResponseEntity deleteAll(List<Long> deleteIdList) throws BusinessException {
+
+            for(Long id : deleteIdList){
+                Question question = repository.findById(id)
+                        .orElseThrow(() -> new BusinessException(localization.getMessage("question.not.found")));
+                repository.delete(question);
+            };
+
+        return ResponseEntity.ok().body(deleteIdList.size() + " асуулт амжилттай устгагдлаа.");
+    }
+
+    @Override
+    public List<Question> updateAll(List<Question> questionList, HttpServletRequest req) throws BusinessException {
+        try {
+            Logger.info(this.getClass().getName(), "[update][input][" + questionList.toString() + "]");
+
+            List<Question> result = new ArrayList<>();
+            for(Question q: questionList){
+                Question question = repository.findById(q.getId()) .orElseThrow(() ->
+                        new BusinessException(localization.getMessage("question.not.found")));
+                question.setDescription(q.getDescription());
+                question.setTitle(q.getTitle());
+                result.add(question);
+                repository.save(question);
+            }
+
+            Logger.info(this.getClass().getName(), "[update][output][" + result.toString() + "]");
+            return result;
+        } catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[update][output][" + ex.getMessage() + "]", ex);
+            throw ex;
+        }
+
+    }
+
+    /**
+     * @param questionId Long
+     * @param req servlet request
+     * @throws BusinessException when Data not found
+     * @author ner
+     **/
+
+    public ResponseEntity delete(Long questionId, HttpServletRequest req) throws BusinessException{
+        try {
+            Logger.info(this.getClass().getName(), "[delete][input][questionId=" + questionId + "]");
+
+            repository.findById(questionId)
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("data.not.found"), "Question not found"));
+            repository.deleteById(questionId);
+
+            Logger.info(this.getClass().getName(), "[delete][output][success]");
+            return ResponseEntity.ok().body("Амжилттай устгалаа");
+        } catch (BusinessException ex) {
+            Logger.warn(getClass().getName(), "[delete][" + ex.reason + "]");
+            throw ex;
+        } catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[delete][output][" + ex.getMessage() + "]", ex);
+            throw ex;
+        }
+    }
+
+
 
     /**
      * @param questionId Long
@@ -139,21 +176,14 @@ public class QuestionServiceImpl implements QuestionService {
         try {
             Logger.info(this.getClass().getName(), "[update][input][" + updateRequest.toString() + "]");
 
-            User user = userRepository.findById(updateRequest.getUserId())
-                    .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
-
-            Question question = repository.save(Question.builder()
-                    .description(updateRequest.getDescription())
-                    .title(updateRequest.getTitle())
-                    .upVotes(updateRequest.getUpVotes())
-                    .user(user)
-                    .build());
+            Question question = repository.findById(updateRequest.getId()) .orElseThrow(() ->
+                    new BusinessException(localization.getMessage("data.not.found"), "Question not found"));
+            question.setDescription(updateRequest.getDescription());
+            question.setTitle(updateRequest.getTitle());
+            repository.save(question);
 
             Logger.info(this.getClass().getName(), "[update][output][" + question.toString() + "]");
             return null;
-        } catch (BusinessException ex) {
-            Logger.warn(getClass().getName(), "[update][" + ex.reason + "]");
-            throw ex;
         } catch (Exception ex) {
             Logger.fatal(this.getClass().getName(), "[update][output][" + ex.getMessage() + "]", ex);
             throw ex;

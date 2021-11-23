@@ -41,6 +41,11 @@ public class Question extends Audit{
     @Column(name = "UP_VOTES", nullable = true)
     private Integer upVotes;
 
+    public Question(Long id, String title, String description){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
     @PrePersist
     public void prePersist() {
         setId(getId() == null ? System.currentTimeMillis() : getId());

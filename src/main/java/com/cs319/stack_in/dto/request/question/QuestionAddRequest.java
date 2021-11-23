@@ -18,12 +18,8 @@ public class QuestionAddRequest {
     @NotBlank(message = "{val.not.null}")
     private String description;
 
-    private Long correctAnswerId;
-
     @NotNull(message = "{val.not.null}")
-    private Long id;
+    private Long userId;
 
-    @NotNull(message = "{val.not.null}")
-    private int upVotes;
 
 }

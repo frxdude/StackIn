@@ -3,6 +3,7 @@ package com.cs319.stack_in.dto.request.auth;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * AuthRegisterRequest
@@ -28,4 +29,10 @@ public class AuthRegisterRequest {
 
     @NotBlank(message = "{val.not.null}")
     private String rePass;
+
+    @NotNull(message = "{val.not.null}")
+    private Long jobId;
+
+    @NotBlank(message = "{val.not.null}")
+    private String phone;
 }

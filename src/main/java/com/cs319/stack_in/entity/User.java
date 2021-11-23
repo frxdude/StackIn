@@ -30,7 +30,6 @@ public class User extends Audit {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
 
-
     @Column(name = "USERNAME", nullable = false)
     private String username;
 

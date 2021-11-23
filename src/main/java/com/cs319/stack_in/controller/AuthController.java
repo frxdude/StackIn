@@ -40,7 +40,7 @@ public class AuthController {
         return ResponseEntity.ok(service.login(authRequest, req));
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "register", method = RequestMethod.POST)
     public ResponseEntity<Object> register(@Valid @RequestBody AuthRegisterRequest registerRequest, HttpServletRequest req) throws
             BusinessException {
         return ResponseEntity.ok(service.register(registerRequest, req));
@@ -51,7 +51,6 @@ public class AuthController {
             TokenException {
         return ResponseEntity.ok(service.exchangeToken(refreshToken, req));
     }
-
 
     @RequestMapping(value = "otp/send", method = RequestMethod.POST)
     public ResponseEntity<Object> sendOTP(@Valid @RequestBody GenerateOTPRequest otpRequest,

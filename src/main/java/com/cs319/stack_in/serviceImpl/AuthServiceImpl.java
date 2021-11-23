@@ -20,6 +20,7 @@ import com.cs319.stack_in.service.UserService;
 import com.cs319.stack_in.util.Logger;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,20 +68,28 @@ public class AuthServiceImpl implements AuthService {
      **/
 
     public AuthResponse login(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
+
+
         return null;
     }
 
     @Override
-    public AuthResponse register(AuthRegisterRequest registerRequest, HttpServletRequest req) throws BusinessException {
+    public ResponseEntity register(AuthRegisterRequest registerRequest, HttpServletRequest req) throws BusinessException {
 
-        if(registerRequest.getPassword().equals(registerRequest.getRePass())){
-            User user = User.builder()
-                    .username(registerRequest.getUsername()).
-                    build();
-//            userRepository.save();
+        if (!registerRequest.getPassword().equals(registerRequest.getRePass())) {
+            return ResponseEntity.badRequest().body("Нууц үг таарахгүй байна");
         }
 
-        return null;
+        User user = User.builder()
+                .username(registerRequest.getUsername())
+                .email(registerRequest.getEmail())
+                .password(registerRequest.getPassword())
+                .jobId(registerRequest.getJobId())
+                .phone(registerRequest.getPhone())
+                .build();
+
+        userRepository.save(user);
+        return ResponseEntity.accepted().body("Амжилттай бүртгэгдлээ");
     }
 
     /**
