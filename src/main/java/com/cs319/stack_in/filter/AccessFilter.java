@@ -23,12 +23,12 @@ public class AccessFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        String uuid = UUID.randomUUID().toString();
-
-        MDC.put("correlation_id", uuid);
-        res.addHeader("X-Correlation-Id",uuid);
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        HttpServletResponse res = (HttpServletResponse) response;
+//        String uuid = UUID.randomUUID().toString();
+//
+//        MDC.put("correlation_id", uuid);
+//        res.addHeader("X-Correlation-Id",uuid);
         chain.doFilter(request, response);
         MDC.clear();
     }

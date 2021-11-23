@@ -15,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS", indexes = {
-        @Index(name = "user_unique_id_idx", columnList = "unique_id", unique = true),
+        @Index(name = "user_id_idx", columnList = "id", unique = true),
 })
 @Getter
 @Setter
@@ -43,11 +43,20 @@ public class User extends Audit {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+    @Column(name = "EMAIL", nullable = false)
+    private String email;
+
+    @Column(name = "PHONE", nullable = false)
+    private String phone;
+
+    @Column(name = "JOB_ID", nullable = false)
+    private Long jobId;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         setUniqueId(getUniqueId() == null ? RandomStringUtils.randomAlphabetic(24) : getUniqueId());
     }
 }

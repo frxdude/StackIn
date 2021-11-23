@@ -3,6 +3,7 @@ package com.cs319.stack_in.controller;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.auth.ConfirmOTPRequest;
 import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
+import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.exception.TokenException;
 import com.cs319.stack_in.service.AuthService;
@@ -10,7 +11,6 @@ import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,14 +29,16 @@ import java.io.UnsupportedEncodingException;
 public class AuthController {
 
     AuthService service;
+    UserService userService;
 
     @Autowired
-    public AuthController(AuthService service) {
+    public AuthController(AuthService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ResponseEntity<Object> adminLogin(@Valid @RequestBody AuthRequest authRequest, HttpServletRequest req) throws
+    public ResponseEntity<Object> login(@Valid @RequestBody AuthRequest authRequest, HttpServletRequest req) throws
             BusinessException {
         return ResponseEntity.ok(service.login(authRequest, req));
     }

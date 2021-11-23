@@ -1,20 +1,20 @@
-2021-11-23 21:05:59.059  INFO  AuthServiceImpl:21 - [confirmOTP][input][ConfirmOTPRequest(otp=4057)] --  -- 
-2021-11-23 21:05:59.059  WARN  AuthServiceImpl:24 - [confirmOTP][Confirm time expired] --  -- 
-2021-11-23 21:07:13.013  INFO  AuthServiceImpl:21 - [sendOtp][input][GenerateOTPRequest(value=2@n)] --  -- 
-2021-11-23 21:07:13.013  INFO  AuthServiceImpl:21 - [sendOtp][output][Confirmation password sent to 2@n. 0688] --  -- 
-2021-11-23 21:07:37.037  INFO  AuthServiceImpl:21 - [confirmOTP][input][ConfirmOTPRequest(otp=0688)] --  -- 
-2021-11-23 21:07:37.037  INFO  AuthServiceImpl:21 - [confirmOTP][output][{message=success, accessToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyQG4iLCJhdXRoIjoiUk9MRV9URU1QIiwiaWF0IjoxNjM3NjcyODU3LCJleHAiOjE2Mzc2NzQ2NTd9.-X5QfPTe5T7Ehytkg08AZB_T1bGgmL-HSXnopj-e4fc}] --  -- 
-2021-11-23 21:09:07.007  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=goodaberg103@gmail.com, password=2121)] --  -- 
-2021-11-23 21:09:07.007  FATAL AuthServiceImpl:30 - [login][output][User not found] --  -- 
-com.cs319.stack_in.exception.BusinessException: User not found
-	at com.cs319.stack_in.serviceImpl.AuthServiceImpl.lambda$login$0(AuthServiceImpl.java:72)
-	at java.base/java.util.Optional.orElseThrow(Optional.java:401)
-	at com.cs319.stack_in.serviceImpl.AuthServiceImpl.login(AuthServiceImpl.java:72)
-	at com.cs319.stack_in.controller.AuthController.login(AuthController.java:43)
+2021-11-03 12:54:28.028  INFO  QuestionServiceImpl:21 - [getAll][input][] --  -- 
+2021-11-03 12:54:28.028  INFO  QuestionServiceImpl:21 - [getAll][output][size=3] --  -- 
+2021-11-03 12:55:02.002  INFO  QuestionServiceImpl:21 - [get][input][questionId=1] --  -- 
+2021-11-03 12:55:02.002  INFO  QuestionServiceImpl:21 - [get][output][com.cs319.stack_in.entity.Question@5456a6df] --  -- 
+2021-11-03 12:55:05.005  INFO  QuestionServiceImpl:21 - [get][input][questionId=20201] --  -- 
+2021-11-03 12:55:05.005  FATAL QuestionServiceImpl:30 - [get][output][No message found under code 'data.not.found' for locale 'en'.] --  -- 
+org.springframework.context.NoSuchMessageException: No message found under code 'data.not.found' for locale 'en'.
+	at org.springframework.context.support.AbstractMessageSource.getMessage(AbstractMessageSource.java:161)
+	at com.cs319.stack_in.helper.Localization.getMessage(Localization.java:32)
+	at com.cs319.stack_in.serviceImpl.QuestionServiceImpl.lambda$get$2(QuestionServiceImpl.java:121)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.cs319.stack_in.serviceImpl.QuestionServiceImpl.get(QuestionServiceImpl.java:121)
+	at com.cs319.stack_in.controller.QuestionController.getById(QuestionController.java:38)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
@@ -24,8 +24,8 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
@@ -37,9 +37,6 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
-	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
-	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
@@ -98,6 +95,22 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:832)
-2021-11-23 21:09:22.022  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=B180910040@must.edu.mn, password=2121)] --  -- 
-2021-11-23 21:09:23.023  INFO  AuthServiceImpl:21 - [login][output][com.cs319.stack_in.dto.response.auth.AuthResponse@3e1b20ac] --  -- 
+	at java.base/java.lang.Thread.run(Thread.java:831)
+2021-11-03 12:56:08.008  INFO  QuestionServiceImpl:21 - [get][input][questionId=20201] --  -- 
+2021-11-03 12:56:09.009  WARN  QuestionServiceImpl:24 - [get][Question not found] --  -- 
+2021-11-03 12:56:14.014  INFO  QuestionServiceImpl:21 - [get][input][questionId=232] --  -- 
+2021-11-03 12:56:14.014  WARN  QuestionServiceImpl:24 - [get][Question not found] --  -- 
+2021-11-03 12:56:16.016  INFO  QuestionServiceImpl:21 - [get][input][questionId=2] --  -- 
+2021-11-03 12:56:16.016  INFO  QuestionServiceImpl:21 - [get][output][com.cs319.stack_in.entity.Question@76a815bc] --  -- 
+2021-11-03 12:56:19.019  INFO  QuestionServiceImpl:21 - [get][input][questionId=3] --  -- 
+2021-11-03 12:56:19.019  WARN  QuestionServiceImpl:24 - [get][Question not found] --  -- 
+2021-11-03 12:56:22.022  INFO  QuestionServiceImpl:21 - [get][input][questionId=1] --  -- 
+2021-11-03 12:56:22.022  INFO  QuestionServiceImpl:21 - [get][output][com.cs319.stack_in.entity.Question@34d85133] --  -- 
+2021-11-03 12:56:30.030  INFO  QuestionServiceImpl:21 - [getAll][input][] --  -- 
+2021-11-03 12:56:30.030  INFO  QuestionServiceImpl:21 - [getAll][output][size=3] --  -- 
+2021-11-03 12:56:48.048  INFO  QuestionServiceImpl:21 - [delete][input][questionId=2] --  -- 
+2021-11-03 12:56:48.048  INFO  QuestionServiceImpl:21 - [delete][output][success] --  -- 
+2021-11-03 12:56:52.052  INFO  QuestionServiceImpl:21 - [delete][input][questionId=4] --  -- 
+2021-11-03 12:56:52.052  INFO  QuestionServiceImpl:21 - [delete][output][success] --  -- 
+2021-11-03 12:57:12.012  INFO  QuestionServiceImpl:21 - [delete][input][questionId=3333] --  -- 
+2021-11-03 12:57:12.012  WARN  QuestionServiceImpl:24 - [delete][Question not found] --  -- 

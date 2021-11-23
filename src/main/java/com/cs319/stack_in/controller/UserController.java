@@ -1,6 +1,7 @@
 package com.cs319.stack_in.controller;
 
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
+import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
@@ -36,9 +37,10 @@ public class UserController {
         return ResponseEntity.ok(service.resetPassword(id, req));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_TEMP')")
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public ResponseEntity<Object> register(@Valid @RequestBody AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
+    @PreAuthorize("hasRole('ROLE_TEMP')")
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthRequest authRequest,
+                                                HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.register(authRequest, req));
     }
 }
