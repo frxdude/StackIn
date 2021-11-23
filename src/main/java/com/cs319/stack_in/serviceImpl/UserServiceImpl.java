@@ -3,11 +3,15 @@ package com.cs319.stack_in.serviceImpl;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
+import com.cs319.stack_in.entity.Answer;
+import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.entity.Role;
 import com.cs319.stack_in.entity.User;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.helper.Localization;
 import com.cs319.stack_in.jwt.JwtTokenProvider;
+import com.cs319.stack_in.repository.AnswerRepository;
+import com.cs319.stack_in.repository.QuestionRepository;
 import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.UserService;
 import com.cs319.stack_in.util.Logger;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,8 +39,11 @@ public class UserServiceImpl implements UserService {
     UserRepository repository;
     JwtTokenProvider jwtTokenProvider;
     Localization localization;
-    AuthenticationManager authenticationManager;
+    AnswerRepository answerRepository;
+    QuestionRepository questionRepository;
 
+//    public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+    AuthenticationManager authenticationManager;
 
     @Autowired
     public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization) {
@@ -43,6 +51,8 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.localization = localization;
+        this.answerRepository = answerRepository;
+        this.questionRepository = questionRepository;
     }
 
     /**
@@ -61,6 +71,18 @@ public class UserServiceImpl implements UserService {
             Logger.fatal(this.getClass().getName(), "[login][output][" + ex.getMessage() + "]", ex);
             throw ex;
         }
+    }
+
+    @Override
+    public List<Question> getQuestions(Long id, HttpServletRequest req){
+        List<Question> questionList = questionRepository.findByUserId(id);
+        return questionList;
+    }
+    @Override
+    public List<Answer> getAnswers(Long id, HttpServletRequest req){
+
+        List<Answer> answerList = answerRepository.findByUserId(id);
+        return answerList;
     }
 
     /**
@@ -87,8 +109,8 @@ public class UserServiceImpl implements UserService {
                     .build());
 
             AuthResponse authResponse = AuthResponse.builder()
-                    .accessToken(jwtTokenProvider.createToken(user.getUniqueId(), user.getRoles().get(0), true))
-                    .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), user.getRoles().get(0), false))
+                    .accessToken(jwtTokenProvider.createToken(String.valueOf(user.getId()), user.getRoles().get(0), true))
+                    .refreshToken(jwtTokenProvider.createToken(String.valueOf(user.getId()), user.getRoles().get(0), false))
                     .build();
 
             Logger.info(this.getClass().getName(), "[register][output][" + "" + "]");

@@ -36,7 +36,6 @@ public class StackInApplication {
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomething() {
-		System.out.println(env.getProperty("redis.url"));
 		userRepository.save(User.builder()
 				.email("B180910040@must.edu.mn")
 				.isActive(true)
@@ -45,6 +44,16 @@ public class StackInApplication {
 				.phone("86868000")
 				.uniqueId(UUID.randomUUID().toString())
 				.username("fRx")
+				.roles(Collections.singletonList(Role.ROLE_USER))
+				.build());
+		userRepository.save(User.builder()
+				.email("ariunaa@gmail.com")
+				.isActive(true)
+				.jobId((long) 1)
+				.password(encoder.encode("2121"))
+				.phone("90909090")
+				.uniqueId(UUID.randomUUID().toString())
+				.username("ariunaa")
 				.roles(Collections.singletonList(Role.ROLE_USER))
 				.build());
 		System.out.println("Done");

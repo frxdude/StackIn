@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+2021-11-23 22:00:01.001  INFO  QuestionServiceImpl:21 - [update][input][[com.cs319.stack_in.entity.Question@67232606, com.cs319.stack_in.entity.Question@14942e0b]] --  -- 
+2021-11-23 22:00:01.001  FATAL QuestionServiceImpl:30 - [update][output][Data not found] --  -- 
+com.cs319.stack_in.exception.BusinessException: Data not found
+	at com.cs319.stack_in.serviceImpl.QuestionServiceImpl.lambda$updateAll$2(QuestionServiceImpl.java:104)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+	at com.cs319.stack_in.serviceImpl.QuestionServiceImpl.updateAll(QuestionServiceImpl.java:103)
+	at com.cs319.stack_in.controller.QuestionController.updateAll(QuestionController.java:44)
+=======
 2021-11-23 21:05:59.059  INFO  AuthServiceImpl:21 - [confirmOTP][input][ConfirmOTPRequest(otp=4057)] --  -- 
 2021-11-23 21:05:59.059  WARN  AuthServiceImpl:24 - [confirmOTP][Confirm time expired] --  -- 
 2021-11-23 21:07:13.013  INFO  AuthServiceImpl:21 - [sendOtp][input][GenerateOTPRequest(value=2@n)] --  -- 
@@ -11,10 +20,11 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at java.base/java.util.Optional.orElseThrow(Optional.java:401)
 	at com.cs319.stack_in.serviceImpl.AuthServiceImpl.login(AuthServiceImpl.java:72)
 	at com.cs319.stack_in.controller.AuthController.login(AuthController.java:43)
+>>>>>>> d1debb2ccadde6747eeb305dc7ad76b8cbbdb504
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
@@ -24,8 +34,8 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:920)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:684)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
@@ -37,9 +47,12 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327)
+<<<<<<< HEAD
+=======
 	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115)
 	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+>>>>>>> d1debb2ccadde6747eeb305dc7ad76b8cbbdb504
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:121)
 	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:115)
 	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
@@ -98,6 +111,14 @@ com.cs319.stack_in.exception.BusinessException: User not found
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+<<<<<<< HEAD
+	at java.base/java.lang.Thread.run(Thread.java:831)
+2021-11-23 22:00:30.030  INFO  QuestionServiceImpl:21 - [update][input][[]] --  -- 
+2021-11-23 22:00:30.030  INFO  QuestionServiceImpl:21 - [update][output][[]] --  -- 
+2021-11-23 22:00:46.046  INFO  QuestionServiceImpl:21 - [getAll][input][] --  -- 
+2021-11-23 22:00:46.046  INFO  QuestionServiceImpl:21 - [getAll][output][size=2] --  -- 
+=======
 	at java.base/java.lang.Thread.run(Thread.java:832)
 2021-11-23 21:09:22.022  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=B180910040@must.edu.mn, password=2121)] --  -- 
 2021-11-23 21:09:23.023  INFO  AuthServiceImpl:21 - [login][output][com.cs319.stack_in.dto.response.auth.AuthResponse@3e1b20ac] --  -- 
+>>>>>>> d1debb2ccadde6747eeb305dc7ad76b8cbbdb504
