@@ -1,13 +1,17 @@
 package com.cs319.stack_in.controller;
 
+import com.cs319.stack_in.dto.request.auth.AuthRequest;
+import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * UserController
@@ -31,6 +35,13 @@ public class UserController {
     public ResponseEntity<Object> resetPassword(@PathVariable(value = "userId") Long id,
                                                 HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.resetPassword(id, req));
+    }
+
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_TEMP')")
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthRequest authRequest,
+                                                HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.register(authRequest, req));
     }
 }
 
