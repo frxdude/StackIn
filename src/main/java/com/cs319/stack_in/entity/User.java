@@ -1,11 +1,10 @@
 package com.cs319.stack_in.entity;
-import java.sql.Timestamp;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.List;
 
 /**
@@ -26,9 +25,14 @@ import java.util.List;
 public class User extends Audit {
 
     @Id
+    @SequenceGenerator(name = "userSeq", sequenceName = "USER_SEQ", allocationSize = 1, initialValue = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "userSeq")
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
+
+    @Column(name = "UNIQUE_ID", nullable = false)
+    private String uniqueId;
 
     @Column(name = "USERNAME", nullable = false)
     private String username;
@@ -53,6 +57,6 @@ public class User extends Audit {
 
     @PrePersist
     public void prePersist() {
-        setId(getId() == null ? System.currentTimeMillis() : getId());
+        setUniqueId(getUniqueId() == null ? RandomStringUtils.randomAlphabetic(24) : getUniqueId());
     }
 }

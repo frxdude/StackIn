@@ -1,13 +1,11 @@
 package com.cs319.stack_in.service;
 
-import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.auth.ConfirmOTPRequest;
 import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.exception.TokenException;
-import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -22,7 +20,6 @@ import java.util.HashMap;
 public interface AuthService {
 
     AuthResponse login (AuthRequest authRequest, HttpServletRequest req) throws BusinessException;
-    ResponseEntity register (AuthRegisterRequest registerRequest, HttpServletRequest req) throws BusinessException;
 
     AuthResponse exchangeToken (String refreshToken, HttpServletRequest req) throws TokenException;
 

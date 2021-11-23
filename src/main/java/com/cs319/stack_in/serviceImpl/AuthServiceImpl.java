@@ -1,6 +1,5 @@
 package com.cs319.stack_in.serviceImpl;
 
-import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.auth.ConfirmOTPRequest;
 import com.cs319.stack_in.dto.request.auth.GenerateOTPRequest;
@@ -20,7 +19,6 @@ import com.cs319.stack_in.service.UserService;
 import com.cs319.stack_in.util.Logger;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,28 +66,29 @@ public class AuthServiceImpl implements AuthService {
      **/
 
     public AuthResponse login(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
+        try {
+            Logger.info(this.getClass().getName(), "[login][input][" + authRequest.toString() + "]");
+            User user = userRepository.findByEmail(authRequest.getUsername())
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found")));
+            if (!encoder.matches(authRequest.getPassword(), user.getPassword()))
+                throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "Username or Password doesnt match");
 
+            if (authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUniqueId(), authRequest.getPassword())).isAuthenticated()) {
 
-        return null;
-    }
+                Role role = user.getRoles().get(0);
+                AuthResponse authResponse = AuthResponse.builder()
+                        .accessToken(jwtTokenProvider.createToken(user.getUniqueId(), role, true))
+                        .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), role, false))
+                        .build();
 
-    @Override
-    public ResponseEntity register(AuthRegisterRequest registerRequest, HttpServletRequest req) throws BusinessException {
-
-        if (!registerRequest.getPassword().equals(registerRequest.getRePass())) {
-            return ResponseEntity.badRequest().body("Нууц үг таарахгүй байна");
+                Logger.info(getClass().getName(), "[login][output][" + authResponse.toString() + "]");
+                return authResponse;
+            } else
+                throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "username or password doesnt match");
+        } catch (Exception ex) {
+            Logger.fatal(this.getClass().getName(), "[login][output][" + ex.getMessage() + "]", ex);
+            throw ex;
         }
-
-        User user = User.builder()
-                .username(registerRequest.getUsername())
-                .email(registerRequest.getEmail())
-                .password(registerRequest.getPassword())
-                .jobId(registerRequest.getJobId())
-                .phone(registerRequest.getPhone())
-                .build();
-
-        userRepository.save(user);
-        return ResponseEntity.accepted().body("Амжилттай бүртгэгдлээ");
     }
 
     /**
@@ -101,11 +100,11 @@ public class AuthServiceImpl implements AuthService {
 
     public AuthResponse exchangeToken(String refreshToken, HttpServletRequest req) throws TokenException {
         try {
-            Logger.info(this.getClass().getName(), "[login][input][" + "" + "]");
-            Logger.info(this.getClass().getName(), "[login][output][" + "" + "]");
+            Logger.info(this.getClass().getName(), "[exchangeToken][input][" + "" + "]");
+            Logger.info(this.getClass().getName(), "[exchangeToken][output][" + "" + "]");
             return null;
         } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[login][output][" + ex.getMessage() + "]", ex);
+            Logger.fatal(this.getClass().getName(), "[exchangeToken][output][" + ex.getMessage() + "]", ex);
             throw ex;
         }
     }
@@ -200,7 +199,6 @@ public class AuthServiceImpl implements AuthService {
             otpRepository.delete(oneTimePassword);
 
             response = new HashMap<>();
-            response.put("message", "success");
             response.put("accessToken", jwtTokenProvider.createTempToken(otpRequest.getValue()));
 
             Logger.info(getClass().getName(), "[confirmOTP][output][" + response + "]");
