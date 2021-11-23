@@ -18,5 +18,6 @@ public class AnswerAddRequest {
     @NotNull(message = "{val.not.null}")
     private Long userId;
 
+
     private int upVotes;
 }

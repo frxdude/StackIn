@@ -20,8 +20,6 @@ import javax.persistence.*;
 @Builder
 public class Comment extends  Audit{
     @Id
-    @SequenceGenerator(name = "commentSeq", sequenceName = "COMMENT_SEQ", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "commentSeq")
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -41,7 +39,10 @@ public class Comment extends  Audit{
     @Column(name = "COMMENT", nullable = false)
     private String comment;
 
-
+    @PrePersist
+    public void prePersist() {
+        setId(getId() == null ? System.currentTimeMillis() : getId());
+    }
 
 
 }

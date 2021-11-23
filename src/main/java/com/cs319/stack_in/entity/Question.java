@@ -21,8 +21,6 @@ import javax.persistence.*;
 public class Question extends Audit{
 
     @Id
-    @SequenceGenerator(name = "questionSeq", sequenceName = "QUESTION_SEQ", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "questionSeq")
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -35,6 +33,7 @@ public class Question extends Audit{
 
     @Column(name = "CORRECT_ANSWER_ID", nullable = true)
     private Long correctAnswerId;
+
     @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = false)
     private User user;
@@ -42,4 +41,13 @@ public class Question extends Audit{
     @Column(name = "UP_VOTES", nullable = true)
     private Integer upVotes;
 
+    public Question(Long id, String title, String description){
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
+    @PrePersist
+    public void prePersist() {
+        setId(getId() == null ? System.currentTimeMillis() : getId());
+    }
 }

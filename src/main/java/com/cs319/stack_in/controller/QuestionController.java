@@ -1,6 +1,7 @@
 package com.cs319.stack_in.controller;
 
 import com.cs319.stack_in.dto.request.question.QuestionAddRequest;
+import com.cs319.stack_in.dto.request.question.QuestionUpdateRequest;
 import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.QuestionService;
@@ -29,23 +30,34 @@ public class QuestionController {
     public QuestionController(QuestionService service) {this.service = service;}
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<Object> get(HttpServletRequest req) throws BusinessException {
+    public ResponseEntity<Object> getAll(HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.getAll(req));
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getById(@PathVariable Long id, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.get(id, req));
-    }
-
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<Object> add(@Valid @RequestBody QuestionAddRequest addRequest, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.add(addRequest, req));
+    public Question create(@Valid @RequestBody QuestionAddRequest addRequest, HttpServletRequest req) throws BusinessException {
+        return service.create(addRequest, req);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@Valid @RequestBody QuestionAddRequest addRequest, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.update(addRequest, req));
+    public List<Question> updateAll(@Valid @RequestBody List<Question> questionList, HttpServletRequest req) throws BusinessException {
+        return service.updateAll(questionList, req);
+    }
+
+    @RequestMapping( value ="" , method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteAll(@Valid @RequestBody List<Long> deleteIdList) throws BusinessException {
+        return service.deleteAll( deleteIdList);
+    }
+
+
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> get(@PathVariable Long id, HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.get(id, req));
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> update(@Valid @RequestBody QuestionUpdateRequest updateRequest, HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.update(updateRequest, req));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

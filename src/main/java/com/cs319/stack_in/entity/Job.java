@@ -12,22 +12,22 @@ import javax.persistence.*;
  **/
 
 @Entity
-@Table(name = "JOBS")
+@Table(name = "JOB")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Job extends Audit {
 
     @Id
-    @SequenceGenerator(name = "jobSeq", sequenceName = "JOB_SEQ", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "jobSeq")
     @Column(name = "ID")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Long id;
+    private long  id = System.currentTimeMillis();;
 
     @Column(name = "NAME", nullable = false)
     private String name;
+
+    @OneToOne(targetEntity=Job.class)
+    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID", nullable = true)
+    private Long parentId;
 
 }

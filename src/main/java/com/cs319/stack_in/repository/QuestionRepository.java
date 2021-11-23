@@ -15,4 +15,5 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
     List<Question> findAllByOrderByCreatedDate();
 
     List<Question> findByUserId(Long id);
+
 }
