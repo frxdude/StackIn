@@ -1,6 +1,7 @@
 package com.cs319.stack_in.serviceImpl;
 
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
+import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
 import com.cs319.stack_in.entity.Role;
 import com.cs319.stack_in.entity.User;
@@ -11,6 +12,8 @@ import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.UserService;
 import com.cs319.stack_in.util.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +34,8 @@ public class UserServiceImpl implements UserService {
     UserRepository repository;
     JwtTokenProvider jwtTokenProvider;
     Localization localization;
+    AuthenticationManager authenticationManager;
+
 
     @Autowired
     public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization) {
@@ -71,10 +76,10 @@ public class UserServiceImpl implements UserService {
 
             Optional<User> optionalUser = repository.findByUsername(authRequest.getUsername());
 
-            if(optionalUser.isPresent())
+            if (optionalUser.isPresent())
                 throw new BusinessException(localization.getMessage("user.already"), "User already exists");
 
-            User user  = repository.save(User.builder()
+            User user = repository.save(User.builder()
                     .isActive(true)
                     .username(authRequest.getUsername())
                     .password(encoder.encode(authRequest.getPassword()))

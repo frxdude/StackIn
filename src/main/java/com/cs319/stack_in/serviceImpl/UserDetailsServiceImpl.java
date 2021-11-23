@@ -27,14 +27,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Optional<User> optionalUser = userRepository.findByUsername(name);
+    public UserDetails loadUserByUsername(String Uid) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByUniqueId(Uid);
         final User user;
 
-        if (!optionalUser.isPresent()) throw new UsernameNotFoundException("User '" + name + "' not found");
+        if (!optionalUser.isPresent()) throw new UsernameNotFoundException("User Uid:'" + Uid + "' not found");
         else user = optionalUser.get();
 
-        if (!user.isActive()) throw new UsernameNotFoundException(name + " is deactivated user");
+        if (!user.isActive()) throw new UsernameNotFoundException(Uid + " is deactivated user");
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getId().toString())
                 .password(user.getPassword())

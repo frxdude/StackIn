@@ -12,7 +12,7 @@ import javax.persistence.Id;
 /**
  * OTPRedis
  *
- * @author Tushig Battumur
+ * @author Sainjargal Ishdorj
  **/
 
 @Getter

@@ -68,9 +68,10 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse login(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[login][input][" + authRequest.toString() + "]");
-            User user = userService.findUser(req);
+            User user = userRepository.findByEmail(authRequest.getUsername())
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found")));
             if (!encoder.matches(authRequest.getPassword(), user.getPassword()))
-                throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "Password doesnt match");
+                throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "Username or Password doesnt match");
 
             if (authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUniqueId(), authRequest.getPassword())).isAuthenticated()) {
 
@@ -80,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
                         .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), role, false))
                         .build();
 
-                Logger.info(getClass().getName(), "[login][output][" + authResponse + "]");
+                Logger.info(getClass().getName(), "[login][output][" + authResponse.toString() + "]");
                 return authResponse;
             } else
                 throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "username or password doesnt match");
@@ -99,11 +100,11 @@ public class AuthServiceImpl implements AuthService {
 
     public AuthResponse exchangeToken(String refreshToken, HttpServletRequest req) throws TokenException {
         try {
-            Logger.info(this.getClass().getName(), "[login][input][" + "" + "]");
-            Logger.info(this.getClass().getName(), "[login][output][" + "" + "]");
+            Logger.info(this.getClass().getName(), "[exchangeToken][input][" + "" + "]");
+            Logger.info(this.getClass().getName(), "[exchangeToken][output][" + "" + "]");
             return null;
         } catch (Exception ex) {
-            Logger.fatal(this.getClass().getName(), "[login][output][" + ex.getMessage() + "]", ex);
+            Logger.fatal(this.getClass().getName(), "[exchangeToken][output][" + ex.getMessage() + "]", ex);
             throw ex;
         }
     }
@@ -198,7 +199,6 @@ public class AuthServiceImpl implements AuthService {
             otpRepository.delete(oneTimePassword);
 
             response = new HashMap<>();
-            response.put("message", "success");
             response.put("accessToken", jwtTokenProvider.createTempToken(otpRequest.getValue()));
 
             Logger.info(getClass().getName(), "[confirmOTP][output][" + response + "]");
