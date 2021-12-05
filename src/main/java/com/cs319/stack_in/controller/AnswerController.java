@@ -2,6 +2,7 @@ package com.cs319.stack_in.controller;
 
 import com.cs319.stack_in.dto.request.answer.AnswerAddRequest;
 import com.cs319.stack_in.dto.request.answer.AnswerUpdateRequest;
+import com.cs319.stack_in.entity.Answer;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.AnswerService;
 import io.swagger.annotations.Api;
@@ -30,13 +31,13 @@ public class AnswerController {
     }
 
     @RequestMapping(value = "/{questionId}/answers", method = RequestMethod.GET)
-    public ResponseEntity<Object> getByQuestionId(@PathVariable Long questionId, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.get(questionId, req));
+    public ResponseEntity<Object> getByQuestion(@PathVariable Long questionId, HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.getByQuestionId(questionId, req));
     }
 
     @RequestMapping(value = "/{questionId}/answers", method = RequestMethod.POST)
-    public ResponseEntity<Object> add(@PathVariable Long questionId, @Valid @RequestBody AnswerAddRequest addRequest, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.add(questionId, addRequest, req));
+    public Answer add(@PathVariable Long questionId, @Valid @RequestBody AnswerAddRequest addRequest, HttpServletRequest req) throws BusinessException {
+        return service.add(questionId, addRequest, req);
     }
 
     @RequestMapping(value = "/{questionId}/answers/{id}", method = RequestMethod.PUT)
@@ -44,10 +45,19 @@ public class AnswerController {
         return ResponseEntity.ok(service.update(questionId, id, updateRequest, req));
     }
 
+    @RequestMapping(value = "/{questionId}/answers/{id}", method = RequestMethod.GET)
+    public Answer get(@PathVariable Long questionId, @PathVariable Long id, HttpServletRequest req) throws BusinessException {
+        return service.get(questionId, id, req);
+    }
+
+    @RequestMapping(value = "/{questionId}/answers", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteAllByQuestion(@PathVariable Long questionId, HttpServletRequest req) throws BusinessException {
+        return service.deleteAllByQuestion(questionId, req);
+    }
+
     @RequestMapping(value = "/{questionId}/answers/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable Long questionId, @PathVariable Long id, HttpServletRequest req) throws BusinessException {
-        service.delete(questionId, id, req);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        return service.delete(questionId, id, req);
     }
 
 }

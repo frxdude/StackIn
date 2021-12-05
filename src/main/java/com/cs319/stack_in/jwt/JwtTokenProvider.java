@@ -36,19 +36,19 @@ public class JwtTokenProvider {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
-    private String secretKey;
+    private String secretKey = "df326d4ec29d7970e50faa3d4b24a66ded0cf29a";
     private final long validityInMilliseconds = 86400000; // 1 day
     private final BigInteger refreshValidityInMilliseconds = new BigInteger("31536000000"); // 1 year
     private final long limitedValidityInMilliseconds = 1800000; // 30 min
 
-    @PostConstruct
-    protected void init() {
-        secretKey = env.getProperty("jwt.key");
-    }
+//    @PostConstruct
+//    protected void init() {
+//        secretKey = env.getProperty("jwt.key");
+//    }
 
-    public String createToken(String uniqueId, Role role, boolean isAccess) {
+    public String createToken(Long id, Role role, boolean isAccess) {
 
-        Claims claims = Jwts.claims().setSubject(uniqueId);
+        Claims claims = Jwts.claims().setSubject(String.valueOf(id));
         claims.put("auth", role);
 
         Date now = new Date();
@@ -85,6 +85,14 @@ public class JwtTokenProvider {
     public String getSubject(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
+    public String getSubjectFromReq(HttpServletRequest req){
+        String token = resolveToken(req);
+        return getSubject(token);
+    }
+    public Long getIdFromReq(HttpServletRequest req){
+       return Long.valueOf(getSubjectFromReq(req));
+    }
+
 
     public String getRole(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("auth").toString();
@@ -92,7 +100,7 @@ public class JwtTokenProvider {
 
     public String exchangeToken(String refreshToken) {
         String newAccessToken = createToken(
-                getSubject(refreshToken),
+                Long.valueOf(getSubject(refreshToken)),
                 Role.valueOf(getRole(refreshToken)),
                 true);
         return newAccessToken;

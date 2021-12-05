@@ -15,9 +15,5 @@ public class AnswerAddRequest {
     @NotBlank(message = "{val.not.null}")
     private String answer;
 
-    @NotNull(message = "{val.not.null}")
-    private Long userId;
-
-
-    private int upVotes;
+    private int votes;
 }

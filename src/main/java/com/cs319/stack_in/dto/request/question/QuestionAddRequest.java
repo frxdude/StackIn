@@ -18,8 +18,5 @@ public class QuestionAddRequest {
     @NotBlank(message = "{val.not.null}")
     private String description;
 
-    @NotNull(message = "{val.not.null}")
-    private Long userId;
-
 
 }

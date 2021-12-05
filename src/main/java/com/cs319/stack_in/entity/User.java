@@ -57,6 +57,7 @@ public class User extends Audit {
 
     @PrePersist
     public void prePersist() {
+        setId(getId() == null ? System.currentTimeMillis() : getId());
         setUniqueId(getUniqueId() == null ? RandomStringUtils.randomAlphabetic(24) : getUniqueId());
     }
 }
