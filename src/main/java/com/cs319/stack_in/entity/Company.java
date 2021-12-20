@@ -21,10 +21,10 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Builder
 public class Company extends Audit {
-
     @Id
     @SequenceGenerator(name = "companySeq", sequenceName = "COMPANY_SEQ", allocationSize = 1, initialValue = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "companySeq")
+
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
@@ -38,13 +38,12 @@ public class Company extends Audit {
     @Column(name = "IMAGE_PATH", nullable = false)
     private String imagePath;
 
-    @Column(name = "USER_ID", nullable = false)
-    private Long userId;
+    @ManyToOne(targetEntity=User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = true)
+    private User admin;
 
-    @OneToMany(targetEntity = IndustryType.class, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "company", fetch = FetchType.LAZY)
-    private List<IndustryType> industryTypeList = new ArrayList<>();
-
-    @OneToMany(targetEntity = JobEmployment.class, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "company", fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = JobEmployment.class, cascade = CascadeType.REMOVE,
+            orphanRemoval = true, mappedBy = "company", fetch = FetchType.LAZY)
     private List<JobEmployment> jobEmploymentList = new ArrayList<>();
 
 }

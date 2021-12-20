@@ -20,11 +20,8 @@ import java.util.List;
 
 public interface UserService {
 
+
     AuthResponse resetPassword (Long id, HttpServletRequest req) throws BusinessException;
-
-    List<Question> getQuestions (Long id, HttpServletRequest req) throws BusinessException;
-
-    List<Answer> getAnswers (Long id, HttpServletRequest req) throws BusinessException;
 
     AuthResponse register(AuthRequest authRequest, HttpServletRequest req) throws BusinessException;
 

@@ -6,6 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * QuestionRepository
+ *
+ * @author Ariunaa Gantumur
+ **/
 public interface QuestionRepository extends CrudRepository<Question, Long> {
 
     Optional<Question> findById(Long id);
@@ -15,5 +20,7 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
     List<Question> findAllByOrderByCreatedDate();
 
     List<Question> findByUserId(Long id);
+
+
 
 }

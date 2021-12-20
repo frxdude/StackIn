@@ -18,4 +18,6 @@ import javax.validation.constraints.NotBlank;
 public class AnswerUpdateRequest {
     @NotBlank(message = "{val.not.null}")
     private String answer;
+
+    private int votes;
 }

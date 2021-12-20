@@ -1,13 +1,15 @@
 package com.cs319.stack_in.serviceImpl;
 
-import com.cs319.stack_in.dto.request.AddVoteRequest;
+import com.cs319.stack_in.dto.AddVoteRequest;
 import com.cs319.stack_in.dto.request.question.QuestionAddRequest;
 import com.cs319.stack_in.dto.request.question.QuestionUpdateRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
 import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.entity.User;
+import com.cs319.stack_in.entity.Vote;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.helper.Localization;
+import com.cs319.stack_in.jwt.JwtTokenProvider;
 import com.cs319.stack_in.repository.QuestionRepository;
 import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.QuestionService;
@@ -26,12 +28,15 @@ public class QuestionServiceImpl implements QuestionService {
     Localization localization;
     QuestionRepository repository;
     UserRepository userRepository;
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public QuestionServiceImpl(Localization localization, QuestionRepository repository, UserRepository userRepository) {
+    public QuestionServiceImpl(Localization localization, QuestionRepository repository, JwtTokenProvider jwtTokenProvider, UserRepository userRepository) {
         this.localization = localization;
         this.repository = repository;
         this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
+
     }
     /**
      * @param req servlet request
@@ -61,7 +66,11 @@ public class QuestionServiceImpl implements QuestionService {
         try {
             Logger.info(this.getClass().getName(), "[add][input][" + addRequest.toString() + "]");
 
-            User user = userRepository.findById(addRequest.getUserId())
+            JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
+
+            Long userId = jwtTokenProvider.getIdFromReq(req);
+
+            User user = userRepository.findById(userId)
                             .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
 
             Question question = repository.save(Question.builder()
@@ -144,7 +153,6 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
 
-
     /**
      * @param questionId Long
      * @param req servlet request
@@ -172,34 +180,35 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question update(QuestionUpdateRequest updateRequest, HttpServletRequest req) throws BusinessException {
+    public Question update(Long id, QuestionUpdateRequest questionUpdateRequest, HttpServletRequest req) throws BusinessException {
         try {
-            Logger.info(this.getClass().getName(), "[update][input][" + updateRequest.toString() + "]");
+            Logger.info(this.getClass().getName(), "[update][input][" + questionUpdateRequest.toString() + "]");
 
-            Question question = repository.findById(updateRequest.getId()) .orElseThrow(() ->
-                    new BusinessException(localization.getMessage("data.not.found"), "Question not found"));
-            question.setDescription(updateRequest.getDescription());
-            question.setTitle(updateRequest.getTitle());
-            repository.save(question);
+            Question q = repository.findById(id)
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("data.not.found"), "Question not found"));
+            q.setDescription(questionUpdateRequest.getDescription());
+            q.setTitle(questionUpdateRequest.getTitle());
+            q.setVotes(questionUpdateRequest.getVotes());
+            repository.save(q);
 
-            Logger.info(this.getClass().getName(), "[update][output][" + question.toString() + "]");
-            return null;
+            Logger.info(this.getClass().getName(), "[update][output][" + q.toString() + "]");
+            return q;
         } catch (Exception ex) {
             Logger.fatal(this.getClass().getName(), "[update][output][" + ex.getMessage() + "]", ex);
             throw ex;
         }
     }
 
-
-
     @Override
-    public void vote(Long questionId, AddVoteRequest addVoteRequest, HttpServletRequest req) throws  BusinessException{
-
-        Question question = repository.findById(questionId) .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
-        int vote = question.getUpVotes() != null ? question.getUpVotes() : 0;
-        question.setUpVotes(vote + addVoteRequest.getVote());
-        repository.save(question);
+    public List<Question> getByUser(HttpServletRequest req) throws BusinessException {
+        return repository.findByUserId(jwtTokenProvider.getIdFromReq(req));
     }
 
-
+    @Override
+    public ResponseEntity deleteAllByUser(HttpServletRequest req) throws BusinessException {
+        Long userId = jwtTokenProvider.getIdFromReq(req);
+        List<Question> questionList = repository.findByUserId(userId);
+        repository.deleteAll(questionList);
+        return ResponseEntity.ok().body(questionList.size() + " асуултыг амжилттай устгалаа.");
+    }
 }

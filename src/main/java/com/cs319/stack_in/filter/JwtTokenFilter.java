@@ -22,24 +22,24 @@ import java.io.IOException;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-//    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
-//    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-//        this.jwtTokenProvider = jwtTokenProvider;
-//    }
+    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-//        String token = jwtTokenProvider.resolveToken(httpServletRequest);
-//        try {
-//            if (token != null && jwtTokenProvider.validateToken(token)) {
-//                Authentication auth = jwtTokenProvider.getAuthentication(token);
-//                MDC.put("uniqueId", jwtTokenProvider.getSubject(token));
-//                SecurityContextHolder.getContext().setAuthentication(auth);
-//            }
-//        } catch (UsernameNotFoundException | TokenException ex) {
-//            SecurityContextHolder.clearContext();
-//        }
+        String token = jwtTokenProvider.resolveToken(httpServletRequest);
+        try {
+            if (token != null && jwtTokenProvider.validateToken(token)) {
+                Authentication auth = jwtTokenProvider.getAuthentication(token);
+                MDC.put("id", jwtTokenProvider.getSubject(token));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        } catch (UsernameNotFoundException | TokenException ex) {
+            SecurityContextHolder.clearContext();
+        }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 

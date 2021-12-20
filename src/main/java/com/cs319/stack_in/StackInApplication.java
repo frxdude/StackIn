@@ -34,29 +34,6 @@ public class StackInApplication {
 		SpringApplication.run(StackInApplication.class, args);
 	}
 
-	@EventListener(ApplicationReadyEvent.class)
-	public void doSomething() {
-		userRepository.save(User.builder()
-				.email("B180910040@must.edu.mn")
-				.isActive(true)
-				.jobId((long) 1)
-				.password(encoder.encode("2121"))
-				.phone("86868000")
-				.uniqueId(UUID.randomUUID().toString())
-				.username("fRx")
-				.roles(Collections.singletonList(Role.ROLE_USER))
-				.build());
-		userRepository.save(User.builder()
-				.email("ariunaa@gmail.com")
-				.isActive(true)
-				.jobId((long) 1)
-				.password(encoder.encode("2121"))
-				.phone("90909090")
-				.uniqueId(UUID.randomUUID().toString())
-				.username("ariunaa")
-				.roles(Collections.singletonList(Role.ROLE_USER))
-				.build());
-		System.out.println("Done");
-	}
+
 
 }

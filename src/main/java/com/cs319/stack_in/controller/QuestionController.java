@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class QuestionController {
     @Autowired
     public QuestionController(QuestionService service) {this.service = service;}
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<Object> getAll(HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.getAll(req));
@@ -44,11 +46,15 @@ public class QuestionController {
         return service.updateAll(questionList, req);
     }
 
-    @RequestMapping( value ="" , method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteAll(@Valid @RequestBody List<Long> deleteIdList) throws BusinessException {
-        return service.deleteAll( deleteIdList);
-    }
+//    @RequestMapping( value ="" , method = RequestMethod.DELETE)
+//    public ResponseEntity<Object> deleteAll(@Valid @RequestBody List<Long> deleteIdList) throws BusinessException {
+//        return service.deleteAll( deleteIdList);
+//    }
 
+    @RequestMapping( value ="" , method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteAllByUser(HttpServletRequest req) throws BusinessException {
+        return service.deleteAllByUser( req);
+    }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> get(@PathVariable Long id, HttpServletRequest req) throws BusinessException {
@@ -56,13 +62,12 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@Valid @RequestBody QuestionUpdateRequest updateRequest, HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.update(updateRequest, req));
+    public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody QuestionUpdateRequest questionUpdateRequest, HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.update(id, questionUpdateRequest, req));
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable Long id, HttpServletRequest req) throws BusinessException {
-        service.delete(id, req);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+           return service.delete(id, req);
     }
 }

@@ -22,9 +22,5 @@ public class QuestionUpdateRequest {
     @NotBlank(message = "{val.not.null}")
     private String description;
 
-    @NotNull(message = "{val.not.null}")
-    private Long id;
-
-    @NotNull(message = "{val.not.null}")
-    private int upVotes;
+    private int votes;
 }
