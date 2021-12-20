@@ -43,7 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
     }
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
