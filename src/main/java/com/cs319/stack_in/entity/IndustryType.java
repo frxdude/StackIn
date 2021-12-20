@@ -33,11 +33,6 @@ public class IndustryType extends Audit {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @JoinColumn(name = "COMPANY_ID")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Company company;
+
 
 }

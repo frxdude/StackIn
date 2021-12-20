@@ -68,17 +68,18 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse login(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[login][input][" + authRequest.toString() + "]");
-            User user = userRepository.findByEmail(authRequest.getUsername())
+            User user = userRepository.findByUsername(authRequest.getUsername())
                     .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found")));
             if (!encoder.matches(authRequest.getPassword(), user.getPassword()))
                 throw new BusinessException(localization.getMessage("auth.username.pass.not.match"), "Username or Password doesnt match");
 
-            if (authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUniqueId(), authRequest.getPassword())).isAuthenticated()) {
+            if (authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getId(), authRequest.getPassword())).isAuthenticated()) {
 
                 Role role = user.getRoles().get(0);
+                System.out.println("userId: " + user.getId());
                 AuthResponse authResponse = AuthResponse.builder()
-                        .accessToken(jwtTokenProvider.createToken(user.getUniqueId(), role, true))
-                        .refreshToken(jwtTokenProvider.createToken(user.getUniqueId(), role, false))
+                        .accessToken(jwtTokenProvider.createToken(user.getId(), role, true))
+                        .refreshToken(jwtTokenProvider.createToken(user.getId(), role, false))
                         .build();
 
                 Logger.info(getClass().getName(), "[login][output][" + authResponse.toString() + "]");

@@ -35,11 +35,11 @@ public class Question extends Audit{
     private Long correctAnswerId;
 
     @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = true)
     private User user;
 
-    @Column(name = "UP_VOTES", nullable = true)
-    private Integer upVotes;
+    @Column(name = "VOTES", nullable = true)
+    private Integer votes;
 
     public Question(Long id, String title, String description){
         this.id = id;

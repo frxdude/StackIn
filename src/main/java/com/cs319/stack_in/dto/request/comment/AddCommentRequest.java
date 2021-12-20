@@ -1,22 +1,23 @@
-package com.cs319.stack_in.dto.request;
+package com.cs319.stack_in.dto.request.comment;
 
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * AddVoteRequest
+ * AddCommentRequest
  *
  * @author Ariunaa Gantumur
  **/
-
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddVoteRequest {
+public class AddCommentRequest {
+
+    private Long parentId;
+
     @NotNull(message = "{val.not.null}")
-    private int vote;
+    private String comment;
 }

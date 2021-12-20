@@ -34,11 +34,12 @@ public class Answer extends Audit {
     private Question question;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = true)
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
     private User user;
 
-    @Column(name = "UP_VOTES", nullable = true)
-    private Integer upVotes;
+    @Column(name = "VOTES", nullable = true)
+    private Integer votes;
 
     @PrePersist
     public void prePersist() {

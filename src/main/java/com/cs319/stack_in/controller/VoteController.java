@@ -1,12 +1,16 @@
 package com.cs319.stack_in.controller;
 
-import com.cs319.stack_in.dto.request.AddVoteRequest;
+import com.cs319.stack_in.dto.AddVoteRequest;
+import com.cs319.stack_in.entity.Answer;
+import com.cs319.stack_in.entity.Question;
+import com.cs319.stack_in.entity.Vote;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.service.AnswerService;
 import com.cs319.stack_in.service.QuestionService;
+import com.cs319.stack_in.service.VoteService;
 import io.swagger.annotations.Api;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -23,26 +27,28 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("votes")
 public class VoteController {
-    QuestionService questionService;
-    AnswerService answerService;
 
+    VoteService voteService;
     @Autowired
-    public VoteController(QuestionService questionService, AnswerService answerService) {
-        this.questionService = questionService;
-        this.answerService = answerService;
+    public VoteController(VoteService voteService) {
+        this.voteService = voteService;
     }
-    @RequestMapping(value = "/answers/{id}", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyRole('ROLE_GROUP_ADMIN')")
-    public ResponseEntity<Object> voteForAnswer(@PathVariable Long id, @Valid @RequestBody AddVoteRequest addVoteRequest, HttpServletRequest req) throws BusinessException {
-        answerService.vote( id,addVoteRequest, req);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    @RequestMapping(value = "/answers/{answerId}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public Answer voteForAnswer(@PathVariable Long answerId, @Valid @RequestBody AddVoteRequest addVoteRequest, HttpServletRequest req) throws BusinessException {
+        return voteService.voteAnswer( addVoteRequest, answerId,  req);
     }
 
-    @RequestMapping(value = "/questions/{id}", method = RequestMethod.POST)
-    @PreAuthorize("hasAnyRole('ROLE_GROUP_ADMIN', 'ROLE_USER')")
-    public ResponseEntity<Object> voteForQuestion(@PathVariable Long id, @RequestBody AddVoteRequest addVoteRequest, HttpServletRequest req) throws BusinessException {
-        questionService.vote(id, addVoteRequest, req);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    @RequestMapping(value = "/questions/{questionId}", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public Question voteForQuestion(@PathVariable Long questionId, @RequestBody AddVoteRequest addVoteRequest, HttpServletRequest req) throws BusinessException {
+        return voteService.voteQuestion( addVoteRequest, questionId,  req);
     }
 
+
+    @RequestMapping(value = "/check/{refId}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    public Boolean checkVote(@PathVariable Long refId, HttpServletRequest req) throws BusinessException {
+        return voteService.checkVote( refId,  req);
+    }
 }

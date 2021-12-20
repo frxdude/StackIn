@@ -10,16 +10,13 @@ import javax.validation.constraints.NotNull;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuestionAddRequest {
+public class    QuestionAddRequest {
 
     @NotBlank(message = "{val.not.null}")
     private String title;
 
     @NotBlank(message = "{val.not.null}")
     private String description;
-
-    @NotNull(message = "{val.not.null}")
-    private Long userId;
 
 
 }

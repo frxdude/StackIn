@@ -5,6 +5,8 @@ import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.exception.BusinessException;
+import com.cs319.stack_in.service.AnswerService;
+import com.cs319.stack_in.service.QuestionService;
 import com.cs319.stack_in.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,13 @@ import javax.validation.Valid;
 public class UserController {
 
     UserService service;
-
+    QuestionService questionService;
+    AnswerService answerService;
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, QuestionService questionService, AnswerService answerService) {
         this.service = service;
+        this.questionService = questionService;
+        this.answerService = answerService;
     }
 
     @RequestMapping(value = "{userId}/reset_password", method = RequestMethod.POST)
@@ -40,20 +45,14 @@ public class UserController {
         return ResponseEntity.ok(service.resetPassword(id, req));
     }
 
-    @RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
-    public List<Question> getQuestions(@PathVariable Long id,
-                                                HttpServletRequest req) throws BusinessException {
-        List<Question> questionList = service.getQuestions(id, req);
-
-        return questionList;
+    @RequestMapping(value = "/questions", method = RequestMethod.GET)
+    public List<Question> getQuestions(HttpServletRequest req) throws BusinessException {
+        return questionService.getByUser(req);
     }
 
-    @RequestMapping(value = "/{id}/answers", method = RequestMethod.GET)
-    public List<Answer> getAnswers(@PathVariable Long id,
-                                   HttpServletRequest req) throws BusinessException {
-        List<Answer> answerList = service.getAnswers(id, req);
-
-        return answerList;
+    @RequestMapping(value = "/answers", method = RequestMethod.GET)
+    public List<Answer> getByUser(HttpServletRequest req) throws BusinessException {
+        return answerService.getByUser(req);
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)

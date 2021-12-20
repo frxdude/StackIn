@@ -13,10 +13,13 @@ import java.util.Optional;
  **/
 public interface AnswerRepository  extends CrudRepository<Answer, Long> {
     Optional<Answer> findById(Long id);
+
     List<Answer> findAll();
 
     List<Answer> findAllByOrderByCreatedDate();
+
     List<Answer> findByQuestionId(Long id);
+
     List<Answer> findByUserId(Long id);
 
 
