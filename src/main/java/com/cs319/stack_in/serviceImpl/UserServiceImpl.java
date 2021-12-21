@@ -1,5 +1,6 @@
 package com.cs319.stack_in.serviceImpl;
 
+import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
@@ -79,19 +80,21 @@ public class UserServiceImpl implements UserService {
      * @author Sainjargal Ishdorj
      **/
 
-    public AuthResponse register(AuthRequest authRequest, HttpServletRequest req) throws BusinessException {
+    public AuthResponse register(AuthRegisterRequest authRegisterRequest, HttpServletRequest req) throws BusinessException {
         try {
-            Logger.info(this.getClass().getName(), "[register][input][" + authRequest.toString() + "]");
+            Logger.info(this.getClass().getName(), "[register][input][" + authRegisterRequest.toString() + "]");
 
-            Optional<User> optionalUser = repository.findByUsername(authRequest.getUsername());
+            Optional<User> optionalUser = repository.findByUsername(authRegisterRequest.getUsername());
 
             if (optionalUser.isPresent())
                 throw new BusinessException(localization.getMessage("user.already"), "User already exists");
 
             User user = repository.save(User.builder()
                     .isActive(true)
-                    .username(authRequest.getUsername())
-                    .password(encoder.encode(authRequest.getPassword()))
+                    .username(authRegisterRequest.getUsername())
+                    .password(encoder.encode(authRegisterRequest.getPassword()))
+                    .email(authRegisterRequest.getEmail())
+                    .phone(authRegisterRequest.getPhone())
                     .roles(Collections.singletonList(Role.ROLE_USER))
                     .build());
 

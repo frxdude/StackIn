@@ -1,5 +1,6 @@
 package com.cs319.stack_in.service;
 
+import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
 import com.cs319.stack_in.dto.request.user.LoginRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
@@ -23,7 +24,7 @@ public interface UserService {
 
     AuthResponse resetPassword (Long id, HttpServletRequest req) throws BusinessException;
 
-    AuthResponse register(AuthRequest authRequest, HttpServletRequest req) throws BusinessException;
+    AuthResponse register(AuthRegisterRequest authRegisterRequest, HttpServletRequest req) throws BusinessException;
 
     User findUser(HttpServletRequest req) throws BusinessException;
 }
