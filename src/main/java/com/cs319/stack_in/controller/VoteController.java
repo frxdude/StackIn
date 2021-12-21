@@ -45,7 +45,6 @@ public class VoteController {
         return voteService.voteQuestion( addVoteRequest, questionId,  req);
     }
 
-
     @RequestMapping(value = "/check/{refId}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     public Boolean checkVote(@PathVariable Long refId, HttpServletRequest req) throws BusinessException {
