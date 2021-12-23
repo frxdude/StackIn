@@ -32,10 +32,11 @@ public class CommentController {
 
     @RequestMapping(value = "/ref/{refId}", method = RequestMethod.GET)
     public List<Comment> getByRefId(@PathVariable Long refId, HttpServletRequest req) throws BusinessException {
-        return  service.getAllByRef(refId, req);
+        return service.getAllByRef(refId, req);
     }
+
     @RequestMapping(value = "/ref/{refId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteByRefId(@PathVariable Long refId, HttpServletRequest req) throws BusinessException {
+    public ResponseEntity<Object> deleteByRefId(@PathVariable Long refId, HttpServletRequest req) throws BusinessException {
         return service.deleteAllByRef(refId, req);
     }
 
@@ -45,21 +46,22 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/{commentId}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@PathVariable Long commentId, HttpServletRequest req) throws BusinessException {
+    public ResponseEntity<Object> delete(@PathVariable Long commentId, HttpServletRequest req) throws BusinessException {
         return service.delete(commentId, req);
     }
 
     @RequestMapping(value = "/{commentId}", method = RequestMethod.PUT)
-    public Comment update(@Valid @RequestBody String comment, @PathVariable  Long commentId, HttpServletRequest req) throws BusinessException {
+    public Comment update(@Valid @RequestBody String comment, @PathVariable Long commentId, HttpServletRequest req) throws BusinessException {
         return service.update(comment, commentId, req);
     }
 
     @RequestMapping(value = "/questions/{refId}", method = RequestMethod.POST)
-    public Comment createCommentForQuestion(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId,  HttpServletRequest req) throws BusinessException {
+    public Comment createCommentForQuestion(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId, HttpServletRequest req) throws BusinessException {
         return service.create(addCommentRequest, refId, "question", req);
     }
+
     @RequestMapping(value = "/answers/{refId}", method = RequestMethod.POST)
-    public Comment createCommentForAnswer(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId,  HttpServletRequest req) throws BusinessException {
+    public Comment createCommentForAnswer(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId, HttpServletRequest req) throws BusinessException {
         return service.create(addCommentRequest, refId, "answer", req);
     }
 }

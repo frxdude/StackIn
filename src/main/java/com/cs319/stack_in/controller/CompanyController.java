@@ -29,7 +29,9 @@ public class CompanyController {
     CompanyService service;
 
     @Autowired
-    public CompanyController(CompanyService service) {this.service = service;}
+    public CompanyController(CompanyService service) {
+        this.service = service;
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -44,7 +46,6 @@ public class CompanyController {
             throws BusinessException {
         return ResponseEntity.ok().body(service.update(updateCompanyRequest, req));
     }
-
 
 
 }

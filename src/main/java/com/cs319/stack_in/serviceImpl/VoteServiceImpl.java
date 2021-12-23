@@ -44,12 +44,12 @@ public class VoteServiceImpl implements VoteService {
     @Override
     public Question voteQuestion(AddVoteRequest addVoteRequest, Long id, HttpServletRequest req) throws BusinessException {
         Long userId = jwtTokenProvider.getIdFromReq(req);
-        Question question = questionRepository.findById(id) .orElseThrow(() -> new BusinessException(localization.getMessage("question.not.found"), "Question not found"));
+        Question question = questionRepository.findById(id).orElseThrow(() -> new BusinessException(localization.getMessage("question.not.found"), "Question not found"));
 
 
         Vote existedVote = repository.findByUserIdAndRefId(userId, id).orElse(null);
-        if(existedVote != null){
-            if(existedVote.getVote() == addVoteRequest.getVote()) {
+        if (existedVote != null) {
+            if (existedVote.getVote() == addVoteRequest.getVote()) {
                 repository.delete(existedVote);
                 question.setVotes(calcRemoveVote(question.getVotes(), existedVote.getVote()));
             } else {
@@ -74,6 +74,7 @@ public class VoteServiceImpl implements VoteService {
         return question;
 
     }
+
     @Override
     public Answer voteAnswer(AddVoteRequest addVoteRequest, Long id, HttpServletRequest req) throws BusinessException {
         Answer answer = answerRepository.findById(id)
@@ -83,8 +84,8 @@ public class VoteServiceImpl implements VoteService {
         Long userId = jwtTokenProvider.getIdFromReq(req);
 
         Vote existedVote = repository.findByUserIdAndRefId(userId, id).orElse(null);
-        if(existedVote != null ){
-            if(existedVote.getVote() == addVoteRequest.getVote()) {
+        if (existedVote != null) {
+            if (existedVote.getVote() == addVoteRequest.getVote()) {
                 repository.delete(existedVote);
                 answer.setVotes(calcRemoveVote(answer.getVotes(), existedVote.getVote()));
             } else {
@@ -111,24 +112,21 @@ public class VoteServiceImpl implements VoteService {
     }
 
 
-    private int calcAddVote(int targetNum, int vote){
-        int voteNum = targetNum != 0 ? targetNum : 0;
-        return voteNum + vote;
+    private int calcAddVote(int targetNum, int vote) {
+        return targetNum + vote;
     }
 
-    private int calcRemoveVote(int targetNum, int vote){
-        int voteNum = targetNum != 0 ? targetNum : 0;
-        return voteNum - vote;
+    private int calcRemoveVote(int targetNum, int vote) {
+        return targetNum - vote;
     }
+
     @Override
-    public Boolean checkVote(Long refId, HttpServletRequest req){
+    public Boolean checkVote(Long refId, HttpServletRequest req) {
         Long userId = jwtTokenProvider.getIdFromReq(req);
-        boolean isPresent = repository.findByUserIdAndRefId(userId, refId)
+
+        return repository.findByUserIdAndRefId(userId, refId)
                 .isPresent();
-
-        return isPresent;
     }
-
 
 
 }

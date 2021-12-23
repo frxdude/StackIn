@@ -33,6 +33,7 @@ public class UserController {
     UserService service;
     QuestionService questionService;
     AnswerService answerService;
+
     @Autowired
     public UserController(UserService service, QuestionService questionService, AnswerService answerService) {
         this.service = service;
@@ -59,7 +60,7 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_TEMP')")
     public ResponseEntity<Object> register(@Valid @RequestBody AuthRegisterRequest authRegisterRequest,
-                                                HttpServletRequest req) throws BusinessException {
+                                           HttpServletRequest req) throws BusinessException {
         return ResponseEntity.ok(service.register(authRegisterRequest, req));
     }
 }

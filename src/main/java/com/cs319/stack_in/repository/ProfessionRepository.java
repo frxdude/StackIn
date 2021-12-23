@@ -11,7 +11,9 @@ import java.util.List;
  * @author Ariunaa Gantumur
  **/
 public interface ProfessionRepository extends CrudRepository<Profession, Long> {
+
     List<Profession> findByParentId(Long parentId);
-    List<Profession> findByParentIdAndParentIdIsNull();
+
+//    List<Profession> findByParentIdAndParentIdIsNull();
 
 }

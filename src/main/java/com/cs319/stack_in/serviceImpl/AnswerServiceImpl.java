@@ -1,12 +1,10 @@
 package com.cs319.stack_in.serviceImpl;
 
-import com.cs319.stack_in.dto.AddVoteRequest;
 import com.cs319.stack_in.dto.request.answer.AnswerAddRequest;
 import com.cs319.stack_in.dto.request.answer.AnswerUpdateRequest;
 import com.cs319.stack_in.entity.Answer;
 import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.entity.User;
-import com.cs319.stack_in.entity.Vote;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.helper.Localization;
 import com.cs319.stack_in.jwt.JwtTokenProvider;
@@ -29,7 +27,7 @@ import java.util.List;
  **/
 
 @Service
-public class AnswerServiceImpl  implements AnswerService {
+public class AnswerServiceImpl implements AnswerService {
 
     UserRepository userRepository;
     QuestionRepository questionRepository;
@@ -38,7 +36,7 @@ public class AnswerServiceImpl  implements AnswerService {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public AnswerServiceImpl(UserRepository userRepository,JwtTokenProvider jwtTokenProvider
+    public AnswerServiceImpl(UserRepository userRepository, JwtTokenProvider jwtTokenProvider
             , Localization localization, AnswerRepository repository, QuestionRepository questionRepository) {
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
@@ -132,8 +130,8 @@ public class AnswerServiceImpl  implements AnswerService {
     public Answer get(Long questionId, Long id, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[getAll][input][]");
-           Answer answer = repository.findById(id)
-                   .orElseThrow(() -> new BusinessException(localization.getMessage("answer.not.found")));
+            Answer answer = repository.findById(id)
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("answer.not.found")));
             Logger.info(this.getClass().getName(), "[getAll][output][size=" + answer + "]");
             return answer;
         } catch (Exception ex) {

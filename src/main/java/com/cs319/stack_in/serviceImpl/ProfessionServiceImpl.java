@@ -7,6 +7,7 @@ import com.cs319.stack_in.repository.ProfessionRepository;
 import com.cs319.stack_in.repository.QuestionRepository;
 import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.ProfessionService;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -16,9 +17,9 @@ import java.util.List;
  *
  * @author Ariunaa Gantumur
  **/
+
+@Service
 public class ProfessionServiceImpl implements ProfessionService {
-
-
 
     Localization localization;
     ProfessionRepository repository;
@@ -34,8 +35,9 @@ public class ProfessionServiceImpl implements ProfessionService {
     }
 
 
-    public List<Profession> getRootProfessions(){
-        List<Profession> professions = repository.findByParentIdAndParentIdIsNull();
+    public List<Profession> getRootProfessions() {
+//        List<Profession> professions = repository.findByParentIdAndParentIdIsNull();
+        List<Profession> professions = null;
         return professions;
 
 

@@ -14,10 +14,16 @@ import java.util.List;
  * @author Ariunaa Gantumur
  **/
 public interface CommentService {
-    List<Comment> getAllByRef(Long id, HttpServletRequest req) ;
-    ResponseEntity deleteAllByRef(Long id, HttpServletRequest req);
-    ResponseEntity delete(Long commentId, HttpServletRequest req);
-    Comment create(AddCommentRequest addCommentRequest, Long refId, String refType,  HttpServletRequest req);
-    Comment update(String newComment,  Long commentId, HttpServletRequest req) throws  BusinessException;
+
+    List<Comment> getAllByRef(Long id, HttpServletRequest req);
+
+    ResponseEntity<Object> deleteAllByRef(Long id, HttpServletRequest req);
+
+    ResponseEntity<Object> delete(Long commentId, HttpServletRequest req);
+
+    Comment create(AddCommentRequest addCommentRequest, Long refId, String refType, HttpServletRequest req);
+
+    Comment update(String newComment, Long commentId, HttpServletRequest req) throws BusinessException;
+
     Comment get(Long id, HttpServletRequest req) throws BusinessException;
 }
