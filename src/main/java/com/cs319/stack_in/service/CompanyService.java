@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
  * @author Ariunaa Gantumur
  **/
 public interface CompanyService {
+
     Company create(AddCompanyRequest addCompanyRequest, HttpServletRequest req) throws BusinessException;
+
     Company update(UpdateCompanyRequest addCompanyRequest, HttpServletRequest req) throws BusinessException;
 
 }

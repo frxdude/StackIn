@@ -26,14 +26,6 @@ public class RedisConfig {
         this.env = env;
     }
 
-    //    @Bean
-//    JedisConnectionFactory jedisConnectionFactory() {
-//        JedisConnectionFactory jedisConFactory = new JedisConnectionFactory();
-//        jedisConFactory.setHostName("202.170.69.74");
-//        jedisConFactory.setPort(6379);
-//        return jedisConFactory;
-//    }
-
     @Bean
     public JedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(Objects.requireNonNull(env.getProperty("redis.url")), 6379);

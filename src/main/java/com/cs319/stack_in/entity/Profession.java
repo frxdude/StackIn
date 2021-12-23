@@ -17,16 +17,16 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Job extends Audit {
+public class Profession extends Audit {
 
     @Id
     @Column(name = "ID")
-    private long  id = System.currentTimeMillis();;
+    private long id = System.currentTimeMillis();
 
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    @OneToOne(targetEntity=Job.class)
+    @OneToOne(targetEntity = Profession.class)
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID", nullable = true)
     private Long parentId;
 

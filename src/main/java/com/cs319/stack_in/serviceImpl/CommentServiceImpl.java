@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public CommentServiceImpl(Localization localization, JwtTokenProvider jwtTokenProvider,  CommentRepository repository, UserRepository userRepository) {
+    public CommentServiceImpl(Localization localization, JwtTokenProvider jwtTokenProvider, CommentRepository repository, UserRepository userRepository) {
         this.localization = localization;
         this.repository = repository;
         this.userRepository = userRepository;
@@ -37,19 +37,20 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public ResponseEntity deleteAllByRef(Long refId, HttpServletRequest req) {
+    public ResponseEntity<Object> deleteAllByRef(Long refId, HttpServletRequest req) {
         repository.deleteByRefId(refId);
         return ResponseEntity.ok().body("Амжилттай устгалаа");
     }
-//
+
+    //
     @Override
     public List<Comment> getAllByRef(Long commentId, HttpServletRequest req) {
-        List<Comment> commentList = repository.findByRefId(commentId);
-        return commentList;
+        return repository.findByRefId(commentId);
     }
-//
+
+    //
     @Override
-    public ResponseEntity delete(Long commentId, HttpServletRequest req) {
+    public ResponseEntity<Object> delete(Long commentId, HttpServletRequest req) {
         repository.deleteById(commentId);
         return ResponseEntity.ok().body("Амжилттай устгалаа.");
     }
@@ -68,16 +69,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Comment update(String newComment , Long commentId,  HttpServletRequest req) throws BusinessException {
+    public Comment update(String newComment, Long commentId, HttpServletRequest req) throws BusinessException {
         Comment comment = repository.findById(commentId)
                 .orElseThrow(() -> new BusinessException(localization.getMessage("comment.not.found"), "Comment not found"));
-            comment.setComment(newComment);
-            repository.save(comment);
+        comment.setComment(newComment);
+        repository.save(comment);
         return comment;
     }
 
     @Override
-    public Comment get(Long id, HttpServletRequest req) throws BusinessException{
+    public Comment get(Long id, HttpServletRequest req) throws BusinessException {
         return repository.findById(id).orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
     }
 }

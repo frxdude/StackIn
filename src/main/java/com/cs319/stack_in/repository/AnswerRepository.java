@@ -11,7 +11,8 @@ import java.util.Optional;
  *
  * @author Ariunaa Gantumur
  **/
-public interface AnswerRepository  extends CrudRepository<Answer, Long> {
+public interface AnswerRepository extends CrudRepository<Answer, Long> {
+
     Optional<Answer> findById(Long id);
 
     List<Answer> findAll();

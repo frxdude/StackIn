@@ -16,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerUpdateRequest {
+
     @NotBlank(message = "{val.not.null}")
     private String answer;
 

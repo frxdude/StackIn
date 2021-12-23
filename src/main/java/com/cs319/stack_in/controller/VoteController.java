@@ -29,25 +29,27 @@ import javax.validation.Valid;
 public class VoteController {
 
     VoteService voteService;
+
     @Autowired
     public VoteController(VoteService voteService) {
         this.voteService = voteService;
     }
+
     @RequestMapping(value = "/answers/{answerId}", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     public Answer voteForAnswer(@PathVariable Long answerId, @Valid @RequestBody AddVoteRequest addVoteRequest, HttpServletRequest req) throws BusinessException {
-        return voteService.voteAnswer( addVoteRequest, answerId,  req);
+        return voteService.voteAnswer(addVoteRequest, answerId, req);
     }
 
     @RequestMapping(value = "/questions/{questionId}", method = RequestMethod.POST)
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     public Question voteForQuestion(@PathVariable Long questionId, @RequestBody AddVoteRequest addVoteRequest, HttpServletRequest req) throws BusinessException {
-        return voteService.voteQuestion( addVoteRequest, questionId,  req);
+        return voteService.voteQuestion(addVoteRequest, questionId, req);
     }
 
     @RequestMapping(value = "/check/{refId}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyRole('ROLE_USER')")
-    public Boolean checkVote(@PathVariable Long refId, HttpServletRequest req) throws BusinessException {
-        return voteService.checkVote( refId,  req);
+    public Boolean checkVote(@PathVariable Long refId, HttpServletRequest req) {
+        return voteService.checkVote(refId, req);
     }
 }

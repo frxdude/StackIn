@@ -56,11 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/translations/**")
                 .antMatchers("/images/**")
                 .antMatchers("/**.**")
-                .antMatchers("/")
-                // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
+                .antMatchers("/h2-console/**/**")
+        // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
                 .and()
-                .ignoring()
-                .antMatchers("/h2-console/**/**");
+                .ignoring();
     }
 
     @Bean

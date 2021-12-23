@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
-/**QuestionController
- *
+/**
+ * QuestionController
  *
  * @author Ariunaa Gantumur
  */
@@ -28,7 +28,9 @@ public class QuestionController {
     QuestionService service;
 
     @Autowired
-    public QuestionController(QuestionService service) {this.service = service;}
+    public QuestionController(QuestionService service) {
+        this.service = service;
+    }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -51,9 +53,9 @@ public class QuestionController {
 //        return service.deleteAll( deleteIdList);
 //    }
 
-    @RequestMapping( value ="" , method = RequestMethod.DELETE)
+    @RequestMapping(value = "", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteAllByUser(HttpServletRequest req) throws BusinessException {
-        return service.deleteAllByUser( req);
+        return service.deleteAllByUser(req);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
@@ -68,6 +70,6 @@ public class QuestionController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable Long id, HttpServletRequest req) throws BusinessException {
-           return service.delete(id, req);
+        return service.delete(id, req);
     }
 }

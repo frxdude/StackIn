@@ -1,5 +1,6 @@
 package com.cs319.stack_in.controller;
 
+import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.entity.Answer;
 import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.dto.request.auth.AuthRequest;
@@ -32,6 +33,7 @@ public class UserController {
     UserService service;
     QuestionService questionService;
     AnswerService answerService;
+
     @Autowired
     public UserController(UserService service, QuestionService questionService, AnswerService answerService) {
         this.service = service;
@@ -55,11 +57,11 @@ public class UserController {
         return answerService.getByUser(req);
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @PreAuthorize("hasRole('ROLE_TEMP')")
-    public ResponseEntity<Object> register(@Valid @RequestBody AuthRequest authRequest,
-                                                HttpServletRequest req) throws BusinessException {
-        return ResponseEntity.ok(service.register(authRequest, req));
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthRegisterRequest authRegisterRequest,
+                                           HttpServletRequest req) throws BusinessException {
+        return ResponseEntity.ok(service.register(authRegisterRequest, req));
     }
 }
 
