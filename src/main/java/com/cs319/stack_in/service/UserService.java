@@ -21,7 +21,6 @@ import java.util.List;
 
 public interface UserService {
 
-
     AuthResponse resetPassword (Long id, HttpServletRequest req) throws BusinessException;
 
     AuthResponse register(AuthRegisterRequest authRegisterRequest, HttpServletRequest req) throws BusinessException;
