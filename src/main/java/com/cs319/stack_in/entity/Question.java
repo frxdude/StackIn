@@ -7,10 +7,11 @@ import javax.persistence.*;
 
 /**
  * Question
+ *
  * @author Ariunaa Gantumur
  */
 @Entity
-@Table(name="QUESTIONS", indexes = {
+@Table(name = "QUESTIONS", indexes = {
         @Index(name = "question_id_idx", columnList = "id", unique = true),
 })
 @Getter
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Question extends Audit{
+public class Question extends Audit {
 
     @Id
     @Column(name = "ID")
@@ -34,18 +35,19 @@ public class Question extends Audit{
     @Column(name = "CORRECT_ANSWER_ID", nullable = true)
     private Long correctAnswerId;
 
-    @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = true)
     private User user;
 
     @Column(name = "VOTES", nullable = true)
     private Integer votes;
 
-    public Question(Long id, String title, String description){
+    public Question(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
     }
+
     @PrePersist
     public void prePersist() {
         setId(getId() == null ? System.currentTimeMillis() : getId());

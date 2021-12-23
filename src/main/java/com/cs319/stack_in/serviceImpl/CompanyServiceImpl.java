@@ -8,7 +8,6 @@ import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.helper.Localization;
 import com.cs319.stack_in.jwt.JwtTokenProvider;
 import com.cs319.stack_in.repository.CompanyRepository;
-import com.cs319.stack_in.repository.QuestionRepository;
 import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.CompanyService;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @Service
 public class CompanyServiceImpl implements CompanyService {
+
     Localization localization;
     UserRepository userRepository;
     JwtTokenProvider jwtTokenProvider;
@@ -36,18 +36,18 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company create(AddCompanyRequest addCompanyRequest, HttpServletRequest req) throws BusinessException {
-          User user = userRepository.findById(jwtTokenProvider.getIdFromReq(req))
-                  .orElseThrow(() -> new BusinessException(localization.getMessage("data.not.found"), "User not found"));
+        User user = userRepository.findById(jwtTokenProvider.getIdFromReq(req))
+                .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
 
-          Company company = Company.builder()
-                          .name(addCompanyRequest.getName())
-                                  .location(addCompanyRequest.getLocation())
-                                          .imagePath(addCompanyRequest.getImagePath())
-//                                                  .industryTypeList(addCompanyRequest.getIndustryTypeList())
-                  .admin(user)
-                  .build();
+        Company company = Company.builder()
+                .name(addCompanyRequest.getName())
+                .location(addCompanyRequest.getLocation())
+                .imagePath(addCompanyRequest.getImagePath())
+//              .industryTypeList(addCompanyRequest.getIndustryTypeList())
+                .admin(user)
+                .build();
 
-          repository.save(company);
+        repository.save(company);
         return company;
     }
 

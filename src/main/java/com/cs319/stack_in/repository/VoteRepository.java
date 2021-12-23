@@ -1,6 +1,5 @@
 package com.cs319.stack_in.repository;
 
-import com.cs319.stack_in.entity.Question;
 import com.cs319.stack_in.entity.Vote;
 import org.springframework.data.repository.CrudRepository;
 

@@ -34,5 +34,4 @@ public class IndustryType extends Audit {
     private String name;
 
 
-
 }

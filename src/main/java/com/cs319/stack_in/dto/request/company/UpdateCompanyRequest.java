@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateCompanyRequest {
+
     @NotNull(message = "{val.not.null}")
     private String name;
 

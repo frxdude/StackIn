@@ -7,10 +7,11 @@ import javax.persistence.*;
 
 /**
  * Question
+ *
  * @author Ariunaa Gantumur
  */
 @Entity
-@Table(name="COMMENTS", indexes = {
+@Table(name = "COMMENTS", indexes = {
         @Index(name = "comment_id_idx", columnList = "id", unique = true),
 })
 @Getter
@@ -18,7 +19,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comment extends  Audit{
+public class Comment extends Audit {
     @Id
     @Column(name = "ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)

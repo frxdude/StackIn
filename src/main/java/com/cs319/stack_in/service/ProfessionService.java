@@ -11,7 +11,9 @@ import java.util.List;
  * @author Ariunaa Gantumur
  **/
 public interface ProfessionService {
+
     List<Profession> getProfessions(Long professionId);
+
     List<Profession> getRootProfessions();
 
 }

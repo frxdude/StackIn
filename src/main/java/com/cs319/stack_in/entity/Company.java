@@ -38,7 +38,7 @@ public class Company extends Audit {
     @Column(name = "IMAGE_PATH", nullable = false)
     private String imagePath;
 
-    @ManyToOne(targetEntity=User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", referencedColumnName = "ID", nullable = true)
     private User admin;
 

@@ -7,7 +7,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -26,7 +25,6 @@ import java.util.Date;
  * @author Sainjargal Ishdorj
  **/
 
-
 @Component
 public class JwtTokenProvider {
 
@@ -36,15 +34,15 @@ public class JwtTokenProvider {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
-    private String secretKey = "df326d4ec29d7970e50faa3d4b24a66ded0cf29a";
+    private String secretKey;
     private final long validityInMilliseconds = 86400000; // 1 day
     private final BigInteger refreshValidityInMilliseconds = new BigInteger("31536000000"); // 1 year
     private final long limitedValidityInMilliseconds = 1800000; // 30 min
 
-//    @PostConstruct
-//    protected void init() {
-//        secretKey = env.getProperty("jwt.key");
-//    }
+    @PostConstruct
+    protected void init() {
+        secretKey = env.getProperty("jwt.key");
+    }
 
     public String createToken(Long id, Role role, boolean isAccess) {
 
@@ -92,7 +90,6 @@ public class JwtTokenProvider {
     public Long getIdFromReq(HttpServletRequest req){
        return Long.valueOf(getSubjectFromReq(req));
     }
-
 
     public String getRole(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("auth").toString();

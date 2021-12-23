@@ -36,12 +36,12 @@ public class QuestionServiceImpl implements QuestionService {
         this.repository = repository;
         this.userRepository = userRepository;
         this.jwtTokenProvider = jwtTokenProvider;
-
     }
+
     /**
      * @param req servlet request
      * @return List of {@link Question}
-     * @author ner
+     * @author Ariunaa
      **/
 
     public List<Question> getAll(HttpServletRequest req) {
@@ -55,14 +55,15 @@ public class QuestionServiceImpl implements QuestionService {
             throw ex;
         }
     }
+
     /**
      * @param addRequest {@link QuestionAddRequest} DTO
-     * @param req servlet request
+     * @param req        servlet request
      * @return {@link AuthResponse}
      * @throws BusinessException when User not found
-     * @author ner
+     * @author Ariunaa
      **/
-    public Question create(QuestionAddRequest addRequest, HttpServletRequest req)  throws BusinessException{
+    public Question create(QuestionAddRequest addRequest, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[add][input][" + addRequest.toString() + "]");
 
@@ -71,7 +72,7 @@ public class QuestionServiceImpl implements QuestionService {
             Long userId = jwtTokenProvider.getIdFromReq(req);
 
             User user = userRepository.findById(userId)
-                            .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("user.not.found"), "User not found"));
 
             Question question = repository.save(Question.builder()
                     .description(addRequest.getDescription())
@@ -91,13 +92,13 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public ResponseEntity deleteAll(List<Long> deleteIdList) throws BusinessException {
+    public ResponseEntity<Object> deleteAll(List<Long> deleteIdList) throws BusinessException {
 
-            for(Long id : deleteIdList){
-                Question question = repository.findById(id)
-                        .orElseThrow(() -> new BusinessException(localization.getMessage("question.not.found")));
-                repository.delete(question);
-            };
+        for (Long id : deleteIdList) {
+            Question question = repository.findById(id)
+                    .orElseThrow(() -> new BusinessException(localization.getMessage("question.not.found")));
+            repository.delete(question);
+        }
 
         return ResponseEntity.ok().body(deleteIdList.size() + " асуулт амжилттай устгагдлаа.");
     }
@@ -108,8 +109,8 @@ public class QuestionServiceImpl implements QuestionService {
             Logger.info(this.getClass().getName(), "[update][input][" + questionList.toString() + "]");
 
             List<Question> result = new ArrayList<>();
-            for(Question q: questionList){
-                Question question = repository.findById(q.getId()) .orElseThrow(() ->
+            for (Question q : questionList) {
+                Question question = repository.findById(q.getId()).orElseThrow(() ->
                         new BusinessException(localization.getMessage("question.not.found")));
                 question.setDescription(q.getDescription());
                 question.setTitle(q.getTitle());
@@ -128,12 +129,12 @@ public class QuestionServiceImpl implements QuestionService {
 
     /**
      * @param questionId Long
-     * @param req servlet request
+     * @param req        servlet request
      * @throws BusinessException when Data not found
-     * @author ner
+     * @author Ariunaa
      **/
 
-    public ResponseEntity delete(Long questionId, HttpServletRequest req) throws BusinessException{
+    public ResponseEntity<Object> delete(Long questionId, HttpServletRequest req) throws BusinessException {
         try {
             Logger.info(this.getClass().getName(), "[delete][input][questionId=" + questionId + "]");
 
@@ -155,10 +156,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     /**
      * @param questionId Long
-     * @param req servlet request
+     * @param req        servlet request
      * @return {@link Question}
      * @throws BusinessException when Data not found
-     * @author ner
+     * @author Ariunaa
      **/
 
     public Question get(Long questionId, HttpServletRequest req) throws BusinessException {
