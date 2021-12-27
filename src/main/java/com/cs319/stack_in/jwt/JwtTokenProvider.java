@@ -34,15 +34,16 @@ public class JwtTokenProvider {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
-    private String secretKey;
+    private String secretKey = "df326d4ec29d7970e50faa3d4b24a66ded0cf29a";
     private final long validityInMilliseconds = 86400000; // 1 day
     private final BigInteger refreshValidityInMilliseconds = new BigInteger("31536000000"); // 1 year
     private final long limitedValidityInMilliseconds = 1800000; // 30 min
 
-    @PostConstruct
-    protected void init() {
-        secretKey = env.getProperty("jwt.key");
-    }
+//    @PostConstruct
+//    protected void init() {
+//        secretKey = env.getProperty("jwt.key");
+//    }
+
 
     public String createToken(Long id, Role role, boolean isAccess) {
 

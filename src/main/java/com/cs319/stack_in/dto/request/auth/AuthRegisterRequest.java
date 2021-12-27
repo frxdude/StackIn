@@ -31,7 +31,7 @@ public class AuthRegisterRequest {
     private String rePass;
 
     @NotNull(message = "{val.not.null}")
-    private Long jobId;
+    private Long professionID;
 
     @NotBlank(message = "{val.not.null}")
     private String phone;

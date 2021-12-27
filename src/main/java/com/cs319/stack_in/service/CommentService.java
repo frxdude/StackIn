@@ -21,7 +21,7 @@ public interface CommentService {
 
     ResponseEntity<Object> delete(Long commentId, HttpServletRequest req);
 
-    Comment create(AddCommentRequest addCommentRequest, Long refId, String refType, HttpServletRequest req);
+    Comment create(AddCommentRequest addCommentRequest, Long refId, String refType, HttpServletRequest req) throws BusinessException;
 
     Comment update(String newComment, Long commentId, HttpServletRequest req) throws BusinessException;
 

@@ -1,15 +1,14 @@
 package com.cs319.stack_in.serviceImpl;
 
 import com.cs319.stack_in.entity.Profession;
+import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.helper.Localization;
 import com.cs319.stack_in.jwt.JwtTokenProvider;
 import com.cs319.stack_in.repository.ProfessionRepository;
-import com.cs319.stack_in.repository.QuestionRepository;
 import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.ProfessionService;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,21 +25,41 @@ public class ProfessionServiceImpl implements ProfessionService {
     UserRepository userRepository;
     JwtTokenProvider jwtTokenProvider;
 
+    public ProfessionServiceImpl(Localization localization, ProfessionRepository repository, UserRepository userRepository, JwtTokenProvider jwtTokenProvider) {
+        this.localization = localization;
+        this.repository = repository;
+        this.userRepository = userRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
     @Override
-    public List<Profession> getProfessions(Long professionId) {
-
-        List<Profession> professions = repository.findByParentId(professionId);
-
-        return professions;
-    }
-
-
     public List<Profession> getRootProfessions() {
-//        List<Profession> professions = repository.findByParentIdAndParentIdIsNull();
-        List<Profession> professions = null;
+        List<Profession> professions = repository.findByParentProfessionIsNull();
         return professions;
-
-
     }
+
+    @Override
+    public List<Profession> searchByName(String name) {
+        List<Profession> professions = repository.findByNameContains(name);
+        professions.stream()
+                .forEach(p -> p.setParentProfession(null));
+
+        return professions;
+    }
+
+    @Override
+    public List<Profession> getChildProfessions(Long parentId) throws BusinessException {
+        Profession parentProfession = repository.findById(parentId)
+                .orElseThrow(() -> new BusinessException(localization.getMessage("profession.not.found")));
+
+        List<Profession> professions = repository.findByParentProfession(parentProfession);
+        professions.stream().forEach(p -> p.setParentProfession(null));
+        return professions;
+    }
+
+
+
+
+
 
 }
