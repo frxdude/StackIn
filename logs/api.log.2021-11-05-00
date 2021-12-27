@@ -1,8 +1,0 @@
-2021-11-05 00:11:17.017  INFO  AnswerServiceImpl:21 - [getAll][input][] --  -- 
-2021-11-05 00:11:18.018  INFO  AnswerServiceImpl:21 - [getAll][output][size=2] --  -- 
-2021-11-05 00:12:24.024  INFO  AnswerServiceImpl:21 - [add][input][AnswerAddRequest(answer=??????? 2, userId=1, upVotes=0)] --  -- 
-2021-11-05 00:12:25.025  INFO  AnswerServiceImpl:21 - [add][output][com.cs319.stack_in.entity.Answer@169dbf21] --  -- 
-2021-11-05 00:12:50.050  INFO  AnswerServiceImpl:21 - [delete][input][questionId=2] --  -- 
-2021-11-05 00:12:50.050  WARN  AnswerServiceImpl:24 - [delete][Question not found] --  -- 
-2021-11-05 00:13:04.004  INFO  AnswerServiceImpl:21 - [delete][input][questionId=3] --  -- 
-2021-11-05 00:13:04.004  INFO  AnswerServiceImpl:21 - [delete][output][success] --  -- 
