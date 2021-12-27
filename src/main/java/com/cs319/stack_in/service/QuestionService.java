@@ -33,4 +33,5 @@ public interface QuestionService {
     ResponseEntity<Object> delete(Long questionId, HttpServletRequest req) throws BusinessException;
 
     List<Question> getByUser(HttpServletRequest req) throws BusinessException;
+
 }

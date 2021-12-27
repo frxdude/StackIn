@@ -1,8 +1,8 @@
 package com.cs319.stack_in.service;
 
 import com.cs319.stack_in.entity.Profession;
+import com.cs319.stack_in.exception.BusinessException;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -12,8 +12,10 @@ import java.util.List;
  **/
 public interface ProfessionService {
 
-    List<Profession> getProfessions(Long professionId);
+    List<Profession> getChildProfessions(Long parentId)  throws BusinessException;
 
     List<Profession> getRootProfessions();
+
+    List<Profession> searchByName(String name);
 
 }

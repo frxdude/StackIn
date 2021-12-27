@@ -2,11 +2,13 @@ package com.cs319.stack_in.serviceImpl;
 
 import com.cs319.stack_in.dto.request.auth.AuthRegisterRequest;
 import com.cs319.stack_in.dto.response.auth.AuthResponse;
+import com.cs319.stack_in.entity.Profession;
 import com.cs319.stack_in.entity.Role;
 import com.cs319.stack_in.entity.User;
 import com.cs319.stack_in.exception.BusinessException;
 import com.cs319.stack_in.helper.Localization;
 import com.cs319.stack_in.jwt.JwtTokenProvider;
+import com.cs319.stack_in.repository.ProfessionRepository;
 import com.cs319.stack_in.repository.UserRepository;
 import com.cs319.stack_in.service.UserService;
 import com.cs319.stack_in.util.Logger;
@@ -31,13 +33,15 @@ public class UserServiceImpl implements UserService {
     UserRepository repository;
     JwtTokenProvider jwtTokenProvider;
     Localization localization;
-
+    ProfessionRepository professionRepository;
     @Autowired
-    public UserServiceImpl(PasswordEncoder encoder, UserRepository repository, JwtTokenProvider jwtTokenProvider, Localization localization) {
+    public UserServiceImpl(PasswordEncoder encoder, UserRepository repository,
+                           JwtTokenProvider jwtTokenProvider, Localization localization, ProfessionRepository professionRepository) {
         this.encoder = encoder;
         this.repository = repository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.localization = localization;
+        this.professionRepository = professionRepository;
 
     }
 
@@ -75,13 +79,17 @@ public class UserServiceImpl implements UserService {
             if (optionalUser.isPresent())
                 throw new BusinessException(localization.getMessage("user.already"), "User already exists");
 
+            Profession profession = professionRepository.findById(authRegisterRequest.getProfessionID())
+                    .orElseThrow(() -> new BusinessException(
+                            localization.getMessage("profession.not.found"), "Profession not found"));
+
             User user = repository.save(User.builder()
                     .isActive(true)
                     .username(authRegisterRequest.getUsername())
                     .password(encoder.encode(authRegisterRequest.getPassword()))
                     .email(authRegisterRequest.getEmail())
                     .phone(authRegisterRequest.getPhone())
-                    .jobId(authRegisterRequest.getJobId())
+                    .profession(profession)
                     .roles(Collections.singletonList(Role.ROLE_USER))
                     .build());
 

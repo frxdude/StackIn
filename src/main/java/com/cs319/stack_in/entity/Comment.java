@@ -29,7 +29,7 @@ public class Comment extends Audit {
     private Long refId;
 
     @Column(name = "REF_TYPE", nullable = false)
-    private String type;
+    private String refType;
 
     @Column(name = "USER_ID", nullable = false)
     private Long userId;
