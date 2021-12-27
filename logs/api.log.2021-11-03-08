@@ -1,2 +1,0 @@
-2021-11-03 08:50:21.021  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=fef, password=de)] -- 841859ae-872f-441f-a056-89306120ff32 -- 
-2021-11-03 08:50:21.021  INFO  AuthServiceImpl:21 - [login][output][] -- 841859ae-872f-441f-a056-89306120ff32 -- 

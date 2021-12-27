@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 @Api(tags = "Auth")
 @RestController
 @RequestMapping("auth")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
     AuthService service;
