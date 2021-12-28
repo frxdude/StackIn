@@ -26,6 +26,7 @@ import javax.validation.Valid;
 @Api(tags = "Votes")
 @RestController
 @RequestMapping("votes")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class VoteController {
 
     VoteService voteService;
