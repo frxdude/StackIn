@@ -16,6 +16,7 @@ import java.util.List;
 @Api(tags = "Profession")
 @RestController
 @RequestMapping("professions")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProfessionController {
 
     ProfessionService service;

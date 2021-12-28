@@ -24,6 +24,7 @@ import java.util.List;
 @Api(tags = "Questions")
 @RestController
 @RequestMapping("questions")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class QuestionController {
     QuestionService service;
 
