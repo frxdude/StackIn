@@ -3,6 +3,7 @@ package com.cs319.stack_in.entity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.core.parameters.P;
 
 import javax.persistence.*;
 import java.util.List;
@@ -49,8 +50,9 @@ public class User extends Audit {
     @Column(name = "PHONE", nullable = false)
     private String phone;
 
-    @Column(name = "JOB_ID", nullable = false)
-    private Long jobId;
+    @ManyToOne(targetEntity = Profession.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "PROFESSION_ID", referencedColumnName = "ID", nullable = true)
+    private Profession profession;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;

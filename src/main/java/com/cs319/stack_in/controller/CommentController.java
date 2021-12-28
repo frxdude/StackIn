@@ -57,12 +57,13 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/questions/{refId}", method = RequestMethod.POST)
-    public Comment createCommentForQuestion(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId, HttpServletRequest req) throws BusinessException {
+    public Comment createCommentForQuestion(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId, HttpServletRequest req)  throws  BusinessException {
+        System.out.println("refID: " +  refId);
         return service.create(addCommentRequest, refId, "question", req);
     }
 
     @RequestMapping(value = "/answers/{refId}", method = RequestMethod.POST)
-    public Comment createCommentForAnswer(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId, HttpServletRequest req) throws BusinessException {
+    public Comment createCommentForAnswer(@Valid @RequestBody AddCommentRequest addCommentRequest, @PathVariable Long refId, HttpServletRequest req)  throws  BusinessException{
         return service.create(addCommentRequest, refId, "answer", req);
     }
 }

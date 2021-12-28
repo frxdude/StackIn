@@ -1,2 +1,2 @@
-2021-12-28 02:09:23.023  INFO  AuthServiceImpl:21 - [sendOtp][input][GenerateOTPRequest(value=goodaberg103@gmail.com)] -- 0c238f39-54f5-4a72-936c-4ff90fbfc16a -- 
-2021-12-28 02:09:23.023  INFO  AuthServiceImpl:21 - [sendOtp][output][Confirmation password sent to goodaberg103@gmail.com. 2936] -- 0c238f39-54f5-4a72-936c-4ff90fbfc16a -- 
+2021-12-27 19:00:58.058  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=Ariunaa, password=10011)] -- 5045409b-6d93-425e-8700-8124b1609dfd -- 
+2021-12-27 19:00:59.059  INFO  AuthServiceImpl:21 - [login][output][com.cs319.stack_in.dto.response.auth.AuthResponse@7ebc6d68] -- 5045409b-6d93-425e-8700-8124b1609dfd -- 

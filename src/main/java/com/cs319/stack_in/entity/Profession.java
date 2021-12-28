@@ -12,7 +12,7 @@ import javax.persistence.*;
  **/
 
 @Entity
-@Table(name = "JOB")
+@Table(name = "PROFESSION")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,13 +21,19 @@ public class Profession extends Audit {
 
     @Id
     @Column(name = "ID")
-    private long id = System.currentTimeMillis();
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public Long id;
 
     @Column(name = "NAME", nullable = false)
-    private String name;
+    public String name;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToOne(targetEntity = Profession.class)
     @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID", nullable = true)
-    private Long parentId;
+    public Profession parentProfession;
 
+    @PrePersist
+    public void prePersist() {
+        setId(getId() == null ? System.currentTimeMillis() : getId());
+    }
 }
