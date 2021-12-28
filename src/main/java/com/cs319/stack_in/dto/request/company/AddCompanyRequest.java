@@ -28,6 +28,6 @@ public class AddCompanyRequest {
     private String imagePath;
 
     @NotNull(message = "{val.not.null}")
-    private List<IndustryType> industryTypeList;
+    private List<String> industryTypeList;
 
 }

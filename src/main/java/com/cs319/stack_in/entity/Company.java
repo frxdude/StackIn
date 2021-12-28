@@ -35,7 +35,7 @@ public class Company extends Audit {
     @Column(name = "LOCATION", nullable = false)
     private String location;
 
-    @Column(name = "IMAGE_PATH", nullable = false)
+    @Column(name = "IMAGE_PATH", nullable = true)
     private String imagePath;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)

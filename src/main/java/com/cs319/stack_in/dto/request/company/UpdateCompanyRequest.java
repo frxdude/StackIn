@@ -18,15 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 public class UpdateCompanyRequest {
 
+
     @NotNull(message = "{val.not.null}")
+    private Long id;
+
     private String name;
 
-    @NotNull(message = "{val.not.null}")
     private String location;
 
-    @NotNull(message = "{val.not.null}")
     private String imagePath;
 
-    @NotNull(message = "{val.not.null}")
-    private List<IndustryType> industryTypeList;
+    private List<String> industryTypeList;
 }

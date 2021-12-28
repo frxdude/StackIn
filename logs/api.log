@@ -1,2 +1,2 @@
-2021-12-27 19:00:58.058  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=Ariunaa, password=10011)] -- 5045409b-6d93-425e-8700-8124b1609dfd -- 
-2021-12-27 19:00:59.059  INFO  AuthServiceImpl:21 - [login][output][com.cs319.stack_in.dto.response.auth.AuthResponse@7ebc6d68] -- 5045409b-6d93-425e-8700-8124b1609dfd -- 
+2021-12-28 12:04:18.018  INFO  AuthServiceImpl:21 - [login][input][AuthRequest(username=Ariunaa, password=10011)] -- 7eca01d0-afd0-425d-aa64-fa1521297918 -- 
+2021-12-28 12:04:19.019  INFO  AuthServiceImpl:21 - [login][output][com.cs319.stack_in.dto.response.auth.AuthResponse@7ba0f113] -- 7eca01d0-afd0-425d-aa64-fa1521297918 -- 
