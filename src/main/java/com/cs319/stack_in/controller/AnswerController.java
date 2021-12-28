@@ -22,6 +22,7 @@ import javax.validation.Valid;
 @Api(tags = "Answers")
 @RestController
 @RequestMapping("questions")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AnswerController {
     AnswerService service;
 

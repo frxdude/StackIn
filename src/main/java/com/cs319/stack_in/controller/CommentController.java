@@ -22,6 +22,7 @@ import java.util.List;
 @Api(tags = "Comment")
 @RestController
 @RequestMapping("comments")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CommentController {
     CommentService service;
 
